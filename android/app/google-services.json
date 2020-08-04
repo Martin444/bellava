@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "257354641589",
+    "firebase_url": "https://bellava.firebaseio.com",
+    "project_id": "bellava",
+    "storage_bucket": "bellava.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257354641589:android:2fa3683a6e5290c2528efc",
+        "android_client_info": {
+          "package_name": "com.martinfarel.bellava"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257354641589-d0du4q96rd32c0m7br62o4r0giv11a3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava",
+            "certificate_hash": "dbef562a6fb4ba64d044fe38683c45e679689be3"
+          }
+        },
+        {
+          "client_id": "257354641589-lbcag729jq3ptlojognvcripi55bm5l9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava",
+            "certificate_hash": "08ac155ef63dbdb9068d0b2735b89bbf32a16be1"
+          }
+        },
+        {
+          "client_id": "257354641589-upuodr482q1ej3236739vrh4t1a8jm0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava",
+            "certificate_hash": "011806c80feb58e3f654c8b8840c574bb0f7920b"
+          }
+        },
+        {
+          "client_id": "257354641589-06tsfhb12glgr7662ko177ajisnit1u4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcDsCd91BiJkhmSs08iE4TYlJOjXslgCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257354641589-06tsfhb12glgr7662ko177ajisnit1u4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257354641589:android:c918a8a90c1bdf62528efc",
+        "android_client_info": {
+          "package_name": "com.martinfarel.bellava_prof"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "257354641589-pv5stkqm8jon0oj6sllsibp109i5q810.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava_prof",
+            "certificate_hash": "011806c80feb58e3f654c8b8840c574bb0f7920b"
+          }
+        },
+        {
+          "client_id": "257354641589-06tsfhb12glgr7662ko177ajisnit1u4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcDsCd91BiJkhmSs08iE4TYlJOjXslgCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "257354641589-06tsfhb12glgr7662ko177ajisnit1u4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
