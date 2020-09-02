@@ -32,12 +32,12 @@ class _ListServiceEyebrowState extends State<ListServiceEyebrow> {
               children: <Widget>[
                       CardService("PESTAÑAS", 'assets/pestanas.png', (){
                         Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return Eyebrow(widget.user);
+                          return Eyebrow();
                         }));
                     }), 
                     CardService("CEJAS", 'assets/cejas.png', (){
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return Eyebrow(widget.user);
+                        return Eyebrow();
                       })); 
                     }),
 

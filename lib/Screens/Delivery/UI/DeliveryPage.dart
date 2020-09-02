@@ -1,19 +1,16 @@
-import 'package:bellava/Bloc/user_bloc.dart';
-import 'package:bellava/Models/masajes.dart';
-import 'package:bellava/Models/orders.dart';
-import 'package:bellava/Models/user.dart';
 import 'package:bellava/Screens/Delivery/widget/SelectDateTime.dart';
-import 'package:bellava/Screens/Delivery/widget/button_purple.dart';
 import 'package:bellava/Screens/Delivery/widget/map.dart';
 import 'package:bellava/Screens/Delivery/widget/text_input.dart';
 import 'package:bellava/Screens/Delivery/widget/text_input_location.dart';
-import 'package:bellava/Screens/Home/widget/profileHeader.dart';
-import 'package:bellava/Screens/Success/success.dart';
+import 'package:bellava/Screens/Services/widgets/background.dart';
+import 'package:bellava/Screens/Services/widgets/button_next.dart';
+import 'package:bellava/Screens/controllers/Service_controller.dart';
 import 'package:bellava/Utils/button_green.dart';
 import 'package:bellava/Utils/consts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:bellava/Models/formInfo.dart';
 
@@ -22,18 +19,16 @@ import 'package:location/location.dart';
 // import 'package:latlong/latlong.dart';
 
 class DeliveryPage extends StatefulWidget {
-
-  User user;
+  // User user;
   FormInfo form;
 
-  DeliveryPage({Key key, this.user, this.form});
+  DeliveryPage({Key key, this.form});
 
   @override
   _DeliveryPageState createState() => _DeliveryPageState();
 }
 
 class _DeliveryPageState extends State<DeliveryPage> {
-
   // Variables para la localizacion
   Location location = new Location();
   bool _serviceEnabled;
@@ -43,59 +38,56 @@ class _DeliveryPageState extends State<DeliveryPage> {
 
   @override
   void initState() {
-
+    super.initState();
     _getLocation();
   }
 
-    // Funcion que inicia la busqueda de la ubicacion
-    _getLocation()async {
-          _serviceEnabled = await location.serviceEnabled();
-              if (!_serviceEnabled) {
-                _serviceEnabled = await location.requestService();
-                if (!_serviceEnabled) {
-                  return;
-                }
-              }
+  // Funcion que inicia la busqueda de la ubicacion
+  void _getLocation() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
 
-              _permissionGranted = await location.hasPermission();
-              if (_permissionGranted == PermissionStatus.denied) {
-                _permissionGranted = await location.requestPermission();
-                if (_permissionGranted != PermissionStatus.granted) {
-                  return;
-                }
-              }
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
 
-              //  await location.onLocationChanged.listen((LocationData event){
-              //    if(_locationData == null){
-              //      print(_locationData);
-                    
-              //    }
-              // });
+    //  await location.onLocationChanged.listen((LocationData event){
+    //    if(_locationData == null){
+    //      print(_locationData);
 
-              _locationData = await location.getLocation();
+    //    }
+    // });
 
-              setState(() {
-                lat = LatLng(_locationData.latitude, _locationData.longitude);
-              });
-              print(lat);
+    _locationData = await location.getLocation();
+
+    setState(() {
+      lat = LatLng(_locationData.latitude, _locationData.longitude);
+    });
+    print(lat);
   }
-
 
   final format = DateFormat("dd/mm/yyyy");
   final timeFormat = DateFormat('hh:mm');
   String _controllerBarrioOrder;
-  final _controllerDescriptionPlace =  TextEditingController();
+  final _controllerDescriptionPlace = TextEditingController();
   final _controllerLocationOrder = TextEditingController();
-  final _controllerPhoneNumber =  TextEditingController();
-  final _controllerCupo =  TextEditingController();
-
+  final _controllerPhoneNumber = TextEditingController();
+  final _controllerCupo = TextEditingController();
 
   String _selectedPayment = "";
- 
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  _showSnackBar(text) {
-    final snackBar =  SnackBar(content: Text(text));
+  void _showSnackBar(text) {
+    final snackBar = SnackBar(content: Text(text));
 
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
@@ -104,10 +96,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
-   
-    _showBottomSheet(newTotal) {
+    _showBottomSheet(newTotal) async {
       return showModalBottomSheet(
           backgroundColor: Colors.transparent,
           context: context,
@@ -160,13 +149,11 @@ class _DeliveryPageState extends State<DeliveryPage> {
           });
     }
 
-    _showButtonSheeetMap(){
-        return showBottomSheet(
-          
+    _showButtonSheeetMap() {
+      return showBottomSheet(
           builder: (BuildContext context) {
             return Container(
               child: SingleChildScrollView(
-
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -185,29 +172,25 @@ class _DeliveryPageState extends State<DeliveryPage> {
                     //Aplicar mapa googleMaps
                     Container(
                       width: MediaQuery.of(context).size.width / 1.2,
-                      decoration: BoxDecoration(
-                        
-                      ),
+                      decoration: BoxDecoration(),
                       height: 240,
                       child: Maped(),
                     ),
 
                     ButtonGreen(
-                     text: "Listo!",
-                     onPressed: (){
-                       Navigator.pop(context);
-                       _showBottomSheet(widget.form.price);
-                     },
-                     height: 50,
+                      text: "Listo!",
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _showBottomSheet(widget.form.price);
+                      },
+                      height: 50,
                     )
-
-                  
                   ],
                 ),
-               
               ),
             );
-          });
+          },
+          context: context);
     }
 
     //Esto muestra el dialog del descuento aplicado
@@ -218,12 +201,14 @@ class _DeliveryPageState extends State<DeliveryPage> {
           builder: (context) {
             return AlertDialog(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)
-              ),
-              title: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Center(
-                    child: Text('¡Cupón aplicado con Éxito!')),
+                  borderRadius: BorderRadius.circular(12)),
+              title:  Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.check_circle_outline, color: Colors.greenAccent),
+                  Text('Cupón aplicado')
+                ],
               ),
               content: Container(
                 height: 100,
@@ -234,24 +219,24 @@ class _DeliveryPageState extends State<DeliveryPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Total Anterior: "),
+                        Text("Antes del cupón:"),
                         Text("${widget.form.price} Pesos"),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Descuento: ",
+                        Text(
+                          "Ahorrado: ",
                           style: TextStyle(
-                            color: Colors.redAccent,
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Color(0xff77D499),
+                              fontWeight: FontWeight.bold),
                         ),
-                        Text("$descuento Pesos",
+                        Text(
+                          "$descuento Pesos",
                           style: TextStyle(
-                            color: Colors.redAccent,
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Color(0xff77D499),
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -259,7 +244,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Nuevo total:",
+                          "Despues del cupón: ",
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                         Text(
@@ -272,38 +257,53 @@ class _DeliveryPageState extends State<DeliveryPage> {
                 ),
               ),
               actions: <Widget>[
-                FlatButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Firestore.instance
-                          .collection('users')
-                          .document(widget.user.uid)
-                          .updateData({
-                        "cupo": FieldValue.arrayUnion([_controllerCupo.text])
-                      });
-                         var info = FormInfo(
-                                      fecha: "",
-                                      descripcion: _controllerDescriptionPlace.text,
-                                      flexible: false,
-                                      calle: "",
-                                      barrio: _controllerBarrioOrder,
-                                      vivienda: "",
-                                      numeroTelefono: _controllerPhoneNumber.text,
-                                      services: widget.form.services,
-                                      price: newTotal,
-                                      type: widget.form.type
-                                    );
-                              Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(builder: (_) {
-                                return DateSelect(info: info,
-                                user: widget.user,
-                            
-                                );
-                              }));
-                    
-                    },
-                    child: Text("Continuar"))
-              ],
+                GetBuilder<ServiceController>(
+                  builder: (_)=> FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Firestore.instance
+                            .collection('users')
+                            .document(_.user.uid)
+                            .updateData({
+                          'cupo': FieldValue.arrayUnion([_controllerCupo.text])
+                        });
+                        var info = FormInfo(
+                            fecha: "",
+                            descripcion: _controllerDescriptionPlace.text,
+                            flexible: false,
+                            calle: "",
+                            barrio: _controllerBarrioOrder,
+                            vivienda: "",
+                            numeroTelefono: _controllerPhoneNumber.text,
+                            services: widget.form.services,
+                            price: newTotal,
+                            type: widget.form.type);
+                        Navigator.pop(context);
+                        Navigator.push(context, MaterialPageRoute(builder: (_) {
+                          return DateSelect(
+                            info: info,
+                          );
+                        }));
+                      },
+                      shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            textColor: Colors.white,
+            child: Container(
+              width: 140,
+              height: 45,
+              child: Center(
+                  child: Text(
+                    'Continuar',
+                    style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+              ),
+            ),
+            color: Color(0xff77D499),
+                  ),
+                )],
             );
           });
     }
@@ -312,39 +312,35 @@ class _DeliveryPageState extends State<DeliveryPage> {
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
-          ProfileHeader(2),
-          
+          BackGradient(),
           Form(
             key: _formKey,
             child: ListView(
               children: <Widget>[
-      
-               //Detalles
+                //Detalles
                 TextInput(
-                  hintText:
-                      "Agrega aquí: cualquier información, detalle o cuidado especial que necesites",
+                  hintText: 'Por favor, detalla aquí cualquier información que creas necesaria',
                   inputType: TextInputType.multiline,
                   maxLines: 4,
                   controller: _controllerDescriptionPlace,
                 ),
-              
 
-               
                 //Barrio
                 Container(
                   padding: EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 2, bottom: 2),
+                      left: 10.0, right: 10.0, top: 2, bottom: 5),
                   margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                   decoration: BoxDecoration(
-                      color: Color(0xFFFFFFFF),
-                      borderRadius: BorderRadius.all(Radius.circular(9.0)),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 15.0,
-                            offset: Offset(0.0, 7.0))
-                      ]),
-                  child: new DropdownButton<String>(
+                    color: opacityCeleste2,
+                    borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                    // boxShadow: <BoxShadow>[
+                    //   BoxShadow(
+                    //       color: Colors.black12,
+                    //       blurRadius: 15.0,
+                    //       offset: Offset(0.0, 7.0))
+                    // ]
+                  ),
+                  child: DropdownButton<String>(
                       underline: Container(
                         decoration: const BoxDecoration(
                             border: Border(
@@ -353,16 +349,19 @@ class _DeliveryPageState extends State<DeliveryPage> {
                       value: _controllerBarrioOrder == null
                           ? null
                           : _controllerBarrioOrder,
-                      icon: Icon(Icons.location_city),
+                      icon: Icon(
+                        Icons.keyboard_arrow_down,
+                        size: 26,
+                      ),
                       hint: Container(
-                        padding: EdgeInsets.only(top: 18),
+                        padding: EdgeInsets.only(top: 18, bottom: 10),
                         margin: EdgeInsets.only(right: 5),
-                        height: MediaQuery.of(context).size.height / 11,
+                        height: MediaQuery.of(context).size.height / 10,
                         width: MediaQuery.of(context).size.width / 1.35,
                         child: Text(
                           "Selecciona tu Barrio",
                           style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 19.0,
                             fontFamily: "Lato",
                             color: Colors.blueGrey,
                             fontWeight: FontWeight.bold,
@@ -388,7 +387,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                           child: Text(
                             value,
                             style: TextStyle(
-                                fontSize: 15.0,
+                                fontSize: 21.0,
                                 fontFamily: "Lato",
                                 color: Colors.blueGrey,
                                 fontWeight: FontWeight.bold),
@@ -402,51 +401,126 @@ class _DeliveryPageState extends State<DeliveryPage> {
                       }),
                 ),
 
-
                 //Numero de telefono
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: TextInputLocation(
-                      controller: _controllerPhoneNumber,
-                      hintText: "Teléfono",
-                      iconData: Icons.phone,
-                      tipoTeclado: TextInputType.number,
-                      ),
+                    controller: _controllerPhoneNumber,
+                    hintText: 'Teléfono de contacto',
+                    iconData: SvgPicture.asset('assets/icons/phone.svg',
+                        fit: BoxFit.none, width: 5, color: Colors.blueGrey),
+                    tipoTeclado: TextInputType.number,
+                  ),
                 ),
-                
+
                 //Cupon
                 Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: TextInputLocation(
-                      controller: _controllerCupo,
-                      hintText: "Cupón promocional",
-                      iconData: Icons.local_offer),
+                    controller: _controllerCupo,
+                    hintText: 'Cupón de descuento',
+                    iconData: SvgPicture.asset('assets/icons/tag.svg',
+                        fit: BoxFit.none, width: 5, color: Colors.blueGrey),
+                  ),
                 ),
-               
-                //Button
-                Container(
-                  child: ButtonPurple(
-                    buttonText: "Siguiente",
-                    onPressed: () async {
-                      // showAlertDescuento(context, 300);
-                        
-                      if(_controllerPhoneNumber.text.isNotEmpty && _controllerBarrioOrder  != null){
+                SizedBox(height: 160)
+              ],
+            ),
+          ),
+          // BarTop
+          SafeArea(
+            child: Container(
+              width: Get.width,
+              padding: EdgeInsets.all(10),
+              child: Stack(
+                children: [
+                  Container(
+                    width: Get.width,
+                    height: 90,
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Text(
+                      'Detalles de la solicitud',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19),
+                    ),
+                  ),
+                  Container(
+                    width: 45,
+                    height: 45,
+                    child: FlatButton(
+                      child: Center(
+                          child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.black87,
+                      )),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
 
-                          if (_controllerCupo.text.length >= 1) {
-                                //Verifiamos que el cupón existe en la base de datos del usuario
+          AnimatedContainer(
+            alignment: AlignmentDirectional.bottomCenter,
+            duration: Duration(seconds: 2),
+            child: Container(
+              alignment: AlignmentDirectional.bottomCenter,
+              height: 95,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(22))),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Total a pagar',
+                              style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700)),
+                          Text('${widget.form.price} Pesos',
+                              style: TextStyle(
+                                  color: Color(0xff77D499),
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold)),
+                        ],
+                      )),
+                  GetBuilder<ServiceController>(
+                    builder: (_)=> Container(
+                      width: 190,
+                      child: FloatNext(
+                        text: 'Siguiente',
+                        iconData: Icons.arrow_forward,
+                        onChanged: () async {
+                          if (_controllerPhoneNumber.text.isNotEmpty &&
+                              _controllerBarrioOrder != null) {
+                            if (_controllerCupo.text.length >= 1) {
+                              //Verifiamos que el cupón existe en la base de datos del usuario
                                 _showSnackBar("Verificando código");
-                               Firestore.instance.collection('users').document(widget.user.uid).get().then((value) {
+                               Firestore.instance.collection('users').document(_.user.uid).get().then((value) {
                                         var cupo =   value.data['cupo'].indexOf(_controllerCupo.text);
                                         print(value.data['cupo']);
 
                                               if(cupo != null){
                                                     cupo == -1 ?
-                                                            //Ahora tenemos que verificar si el cupon esta disponible para usar             
+                                                            //Ahora tenemos que verificar si el cupon esta disponible para usar
                                                             Firestore.instance.collection('cupones').document('${_controllerCupo.text}').get().then((data) {
-                                                                          Firestore.instance.collection('users').document(widget.user.uid).updateData({
+                                                                          Firestore.instance.collection('users').document(_.user.uid).updateData({
                                                                             'cupo' : FieldValue.arrayUnion([_controllerCupo.text])
                                                                           });
-                                                        
 
                                                                       var dataCupo = data.data['isused'];
                                                                       var descuento = data.data['desc'];
@@ -471,14 +545,10 @@ class _DeliveryPageState extends State<DeliveryPage> {
 
                                               }
 
-
                                 });
 
-
-                      
-
-                          } else {
-                            var info2 = FormInfo(
+                            } else {
+                              var info2 = FormInfo(
                                   fecha: "",
                                   descripcion: _controllerDescriptionPlace.text,
                                   flexible: false,
@@ -488,54 +558,30 @@ class _DeliveryPageState extends State<DeliveryPage> {
                                   numeroTelefono: _controllerPhoneNumber.text,
                                   services: widget.form.services,
                                   price: widget.form.price,
-                                  type: widget.form.type
+                                  type: widget.form.type);
+                              Navigator.pop(context);
+                              await Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) {
+                                return DateSelect(
+                                  info: info2,
+                                  // user: widget.user,
                                 );
-                                Navigator.pop(context);
-                                  await Navigator.push(context, MaterialPageRoute(builder: (_) {
-                                      return DateSelect(info: info2,
-                                        user: widget.user,
-                                      );
-                                    }));
-                                    // _showButtonSheeetMap();
-                          }
-
-                          }else {
-                            _showSnackBar("Procura rellenar todos los campos");
+                              }));
+                              // _showButtonSheeetMap();
                             }
-                    },
+                          } else {
+                            _showSnackBar("Procura rellenar todos los campos");
+                          }
+                        },
+                      ),
+                    ),
                   ),
-                ),
-             
-             ],
-            ),
-          ),
-        
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 70,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFB78DD9),
-                  ),
-                  padding: EdgeInsets.only(top: 38.0),
-                  child: Text(
-                    "Detalles de tu solicitud",
-                    style: TextStyle(
-                        color: kwhite,
-                        fontSize: 21,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
+                ],
               ),
-            ],
-          ),
-        
+            ),
+          )
         ],
       ),
     );
   }
-
 }

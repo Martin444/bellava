@@ -1,10 +1,11 @@
+import 'package:bellava/Utils/consts.dart';
 import 'package:flutter/material.dart';
 
 class TextInputLocation extends StatelessWidget {
 
   final String hintText;
   final TextEditingController controller;
-  final IconData iconData;
+  final Widget iconData;
   TextInputType tipoTeclado;
 
   TextInputLocation({
@@ -23,7 +24,7 @@ class TextInputLocation extends StatelessWidget {
         keyboardType: tipoTeclado,
         controller: controller,
         style: TextStyle(
-            fontSize: 15.0,
+            fontSize: 19.0,
             fontFamily: "Lato",
             color: Colors.blueGrey,
             fontWeight: FontWeight.bold
@@ -31,16 +32,16 @@ class TextInputLocation extends StatelessWidget {
 
         decoration: InputDecoration(
             hintText: hintText,
-            suffixIcon:  Icon(iconData),
-            fillColor: Color(0xFFFFFFFF),
+            suffixIcon:  iconData,
+            fillColor: opacityCeleste2,
             filled: true,
             border:  InputBorder.none,
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFFFFFFF)),
+                borderSide: BorderSide(color: opacityCeleste2),
                 borderRadius: BorderRadius.all(Radius.circular(12.0))
             ),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFFFFFFF)),
+                borderSide: BorderSide(color: opacityCeleste2),
                 borderRadius: BorderRadius.all(Radius.circular(12.0))
             )
 
@@ -50,13 +51,13 @@ class TextInputLocation extends StatelessWidget {
       ),
 
       decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.black12,
-                blurRadius: 15.0,
-                offset: Offset(0.0, 7.0)
-            )
-          ]
+          // boxShadow: <BoxShadow>[
+          //   BoxShadow(
+          //       color: Colors.black12,
+          //       blurRadius: 15.0,
+          //       offset: Offset(0.0, 7.0)
+          //   )
+          // ]
       ),
     );
   }

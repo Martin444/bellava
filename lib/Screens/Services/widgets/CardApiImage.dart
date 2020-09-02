@@ -7,16 +7,21 @@ import 'package:bellava/Screens/Home/widget/masaje.dart';
 import 'package:bellava/Screens/Home/widget/pedicure.dart';
 import 'package:bellava/Screens/Services/widgets/ListService.dart';
 import 'package:bellava/Screens/Services/widgets/ListServiceManicure.dart';
+import 'package:bellava/Screens/controllers/Service_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardImageApi extends StatefulWidget {
-
   int action;
   String urlImage;
   String name;
-  User user;
+  // User user;
 
-  CardImageApi({this.action, this.urlImage, this.name, this.user});
+  CardImageApi({
+    this.action,
+    this.urlImage,
+    this.name,
+  });
   @override
   _CardImageApiState createState() => _CardImageApiState();
 }
@@ -24,85 +29,81 @@ class CardImageApi extends StatefulWidget {
 class _CardImageApiState extends State<CardImageApi> {
   @override
   Widget build(BuildContext context) {
-
-    actionRoute(){
-      if (widget.action == 2){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return Manicure(user:widget.user);
-                    }));
-      } else if(widget.action == 3){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return Pedicure(widget.user);
-                    }));
-
-      }else if(widget.action == 4){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return ManiAndPedi(widget.user);
-                    }));
-      } else if(widget.action == 5){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return FaceTabs(widget.user);
-                    }));
-      } else if(widget.action == 6){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return Eyebrow(widget.user);
-                    }));
-      } else if(widget.action == 7){
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return Masaje(widget.user);
-                    }));
-      }
-    }
-
-    print(widget.action);
-
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
 
-    return GestureDetector(
-      onTap: (){
-        actionRoute();
-      },
-      child: Container(
-        width: screenWidth / 1,
-        height: 135,
-        padding: EdgeInsets.only(top:10, left: 10, right: 10),
-        // margin: EdgeInsets.only(top: 5),
+    Color setCOlor (){
+      switch (widget.action) {
+        case 1:
+            return Color.fromRGBO(250, 208, 211, 0.4);
+          break;
+        case 2:
+            return Color.fromRGBO(250, 208, 211, 0.4);
+          break;
+        case 3:
+            return Color.fromRGBO(243, 227, 249, 0.4);
+          break;
+        case 4:
+            return Color.fromRGBO(250, 208, 211, 0.4);
+          break;
+        case 5:
+            return Color.fromRGBO(250, 203, 203, 0.4);
+          break;
+        case 6:
+            return Color.fromRGBO(247, 213, 224, 0.4);
+          break;
+        case 7:
+            return Color.fromRGBO(212, 238, 255, 0.4);
+          break;
+        default:
+      }
+    }
+
+    return GetBuilder<ServiceController>(builder: (_) {
+      return GestureDetector(
+        onTap: () {
+          _.setDataCardsImage(widget.urlImage);
+          _.actionRoute(widget.action);
+        },
         child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color:widget.action != 1 ? Colors.black38 : Colors.white,
-                blurRadius: 10.0,
-                  offset: Offset(0.0, 7.0)
-              )
-            ],
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage("${widget.urlImage}"))
-          ),
-          
+          width: screenWidth / 2.3,
+          height: 200,
+          padding: EdgeInsets.only(top: 10, right: 20),
+          // margin: EdgeInsets.only(top: 5),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.circular(10),
-            ),
+                boxShadow: [
+                  BoxShadow(
+                      color: widget.action != 1 ? Colors.black12 : Colors.white,
+                      blurRadius: 10.0,
+                      offset: Offset(0.0, 7.0))
+                ],
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage("${widget.urlImage}"))),
             child: Container(
-              margin: EdgeInsets.only(left:15, top:10),
-              child: widget.name != null ? Text("${widget.name}", 
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 21,
-                fontWeight: FontWeight.bold
+              decoration: BoxDecoration(
+                color: setCOlor(),
+                borderRadius: BorderRadius.circular(15),
               ),
-              )
-              :
-              Container()
-              ),
+              child: Container(
+                  margin: EdgeInsets.only( top: 15, bottom: 10),
+                  alignment: AlignmentDirectional.topCenter,
+                  child: widget.name != null
+                      ? Text(
+                          '${widget.name}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w300),
+                        )
+                      : Container()),
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

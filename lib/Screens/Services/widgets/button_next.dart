@@ -1,12 +1,12 @@
+import 'package:bellava/Utils/consts.dart';
 import 'package:flutter/material.dart';
 
-
 class FloatNext extends StatefulWidget {
-
   final VoidCallback onChanged;
   final IconData iconData;
+  String text = 'Siguiente';
 
-  FloatNext({@required this.onChanged, this.iconData});
+  FloatNext({@required this.onChanged, this.iconData, this.text});
 
   @override
   FloatNext_State createState() => FloatNext_State();
@@ -17,25 +17,38 @@ class FloatNext_State extends State<FloatNext> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
-      margin: EdgeInsets.only(
-        left: 20,
-        bottom: 15
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.center,
+      child: Container(
+        height: 55,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: FlatButton(
+            color: Color(0xff77D499),
+            onPressed: widget.onChanged,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.text,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 21,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 5,),
+                  Icon(
+                    widget.iconData,
+                    size: 25,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
-      alignment: Alignment.bottomRight,
-    child: FloatingActionButton(
-      elevation: 0,
-      backgroundColor: Color(0xFF00d0d3),
-      //mini: true,
-      tooltip: "Fav",
-      onPressed: widget.onChanged,
-
-      child: Icon(
-      widget.iconData,
-        size: 35,
-      ),
-
-    ),
     );
   }
 }

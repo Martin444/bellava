@@ -1,12 +1,11 @@
+import 'package:bellava/Utils/consts.dart';
 import 'package:flutter/material.dart';
 
-
 class BackGradient extends StatefulWidget {
-
   String title = "Lavado";
   double height = 100;
 
-  BackGradient({Key key, this.title, this.height});//hei
+  BackGradient({Key key, this.title, this.height}); //hei
 
   @override
   _BackGradientState createState() => _BackGradientState();
@@ -15,54 +14,68 @@ class BackGradient extends StatefulWidget {
 class _BackGradientState extends State<BackGradient> {
   @override
   Widget build(BuildContext context) {
-        double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
 
-    if(widget.height == null){
-      widget.height = screenHeight;
-    }
+    widget.height ??= screenHeight;
 
-
-    return Container (
+    return Container(
       width: screenWidth,
       height: widget.height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            colors:[
-              Colors.white,
-              Colors.white,
-            ],
-            begin: FractionalOffset(0.2, 1.7),
-            end: FractionalOffset(1.0, 0.5),
-            stops: [1.0, 0.6],
-          tileMode: TileMode.clamp
-        )
-      ),
+      color: Colors.white38,
 
-      child: FittedBox(
-        fit: BoxFit.none,
-        alignment: Alignment(0.6, -5.5),
-        child: Container(
-          width: screenHeight,
-          height: screenHeight,
-          decoration: BoxDecoration(
-            color:  Colors.cyan[400],
-            borderRadius: BorderRadius.circular(screenHeight / 2),
+      child: Stack(
+            alignment: Alignment(1.6, -1.7),
+        children: [
+          Container(
+            // width: 300,
+            child: FittedBox(
+              fit: BoxFit.none,
+              // alignment: Alignment(-1.3, 2.5),
+              child: 
+                  Container(
+                    width: 250 ,
+                    height: 250 ,
+                    decoration: BoxDecoration(
+                      color: opacityCeleste2,
+                      borderRadius: BorderRadius.circular(screenHeight / 2),
+                    ),
+                  ),
+                
+            ),
           ),
-        ),
+          Positioned(
+            bottom: screenHeight / 1.7,
+            right: screenWidth / 2.0,
+            child: 
+                Container(
+                  margin: EdgeInsets.only(top: 120, left: 100),
+                  width: screenHeight /7,
+                  height: screenHeight /7,
+                  decoration: BoxDecoration(
+                    color: Color(0xffF3EfF9),
+                    borderRadius: BorderRadius.circular(screenHeight / 2),
+                  ),
+                ),
+              
+          ),
+          Positioned(
+            bottom: -45,
+            left: -100,
+            child: 
+                Container(
+                  margin: EdgeInsets.only(top: 420, left: 20),
+                  width: screenHeight /3,
+                  height: screenHeight /3,
+                  decoration: BoxDecoration(
+                    color: Color(0xffF3EfF9),
+                    borderRadius: BorderRadius.circular(screenHeight / 2),
+                  ),
+                ),
+              
+          ),
+        ],
       ),
-
-      /*Text(
-        title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-          fontFamily: "Lato",
-          fontWeight: FontWeight.bold
-        ),
-      ),*/
-
-      //alignment: Alignment(-0.9, -0.6),
     );
   }
 }

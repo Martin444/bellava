@@ -32,12 +32,12 @@ class _ListServiceManicureState extends State<ListServiceManicure> {
               children: <Widget>[
                       CardService("MANICURE", 'assets/manicura.png', (){
                         Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return Manicure(user:widget.user);
+                          return Manicure();
                         }));
                     }), 
                     CardService("PEDICURE", 'assets/bellezapies.png', (){
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return Pedicure(widget.user);
+                        return Pedicure();
                       }
                     )
                   ); 
@@ -47,7 +47,7 @@ class _ListServiceManicureState extends State<ListServiceManicure> {
 
             CardService("MANICURE y PEDICURE", 'assets/maniypedi.png', (){
                         Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return ManiAndPedi(widget.user);
+                          return ManiAndPedi();
                         }));
                     }), 
           ]),
