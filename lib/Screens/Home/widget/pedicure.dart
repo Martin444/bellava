@@ -90,22 +90,27 @@ class _PedicureState extends State<Pedicure> {
                       children: <Widget>[
                         SizedBox(height: 70),
                         Container(
-                          width: Get.width,
-                          height: 100,
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: opacityCeleste1,
+                            width: Get.width,
+                            height: 100,
+                            margin: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: opacityCeleste1,
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover, image: NetworkImage(_.url))),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(243, 227, 249, 0.5),
                               borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  fit: BoxFit.cover, image: NetworkImage(_.url))),
-                          child: Center(
-                            child: Text(
-                              'Pedicure',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Pedicure',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),
@@ -258,7 +263,7 @@ class _PedicureState extends State<Pedicure> {
                           }
                         }, ''),
                         Container(
-                          margin: EdgeInsets.only(bottom: 70),
+                          margin: EdgeInsets.only(bottom: 80),
                           child: CardCategory(
                               "Decoración diseño por uña", "${price10}", count10,
                               () {
@@ -325,7 +330,7 @@ class _PedicureState extends State<Pedicure> {
                   duration: Duration(seconds: 2),
                   child: Container(
                     alignment: AlignmentDirectional.bottomCenter,
-                    height: 95,
+                    height: 75,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:

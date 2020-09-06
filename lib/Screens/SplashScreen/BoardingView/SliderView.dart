@@ -35,11 +35,9 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
     _pageController.dispose();
   }
 
-  _onPageChanged(int index) {
-    setState(() {
+  Future<void> _onPageChanged(int index) async => setState(() {
       _currentPage = index;
     });
-  }
 
   @override
   Widget build(BuildContext context) => topSliderLayout();

@@ -35,22 +35,22 @@ class _CardImageApiState extends State<CardImageApi> {
     Color setCOlor (){
       switch (widget.action) {
         case 1:
-            return Color.fromRGBO(250, 208, 211, 0.4);
+            return Color.fromRGBO(250, 208, 211, 0.5);
           break;
         case 2:
-            return Color.fromRGBO(250, 208, 211, 0.4);
+            return Color.fromRGBO(250, 208, 211, 0.5);   
           break;
         case 3:
-            return Color.fromRGBO(243, 227, 249, 0.4);
+            return Color.fromRGBO(243, 227, 249, 0.5);
           break;
         case 4:
-            return Color.fromRGBO(250, 208, 211, 0.4);
+            return Color.fromRGBO(250, 208, 211, 0.5);
           break;
         case 5:
-            return Color.fromRGBO(250, 203, 203, 0.4);
+            return Color.fromRGBO(250, 203, 203, 0.5);
           break;
         case 6:
-            return Color.fromRGBO(247, 213, 224, 0.4);
+            return Color.fromRGBO(247, 213, 224, 0.5);
           break;
         case 7:
             return Color.fromRGBO(212, 238, 255, 0.4);

@@ -74,7 +74,7 @@ class _ServicePageState extends State<ServicePage> {
                             fontWeight: FontWeight.bold
                           ),
                         ),
-                        // SizedBox(height: 10),
+                        SizedBox(height: 10),
                         AllOrders()
                       ],
                     ),

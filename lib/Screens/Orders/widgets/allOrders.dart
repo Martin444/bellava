@@ -80,17 +80,29 @@ class _AllOrdersState extends State<AllOrders> {
             });
 
                   
-                return Container(
+                return cards.length >= 0 ? Container(
                   // margin: EdgeInsets.only(top: 70),
                   child: Column(
                       
                       children: cards,
                     ),
+                )
+                :
+                Container(
+                  alignment: Alignment.topCenter,
+                  child:  Text('Aún no tienes ninguna solicitud activa, ¡Te invitamos a realizar una!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                    
+                    ),
+                  )
                 );
           
             } else {
               return Container(
-                  margin: EdgeInsets.only(top: 140),
+                alignment: Alignment.topCenter,
                   child:  Text("Hola")
                 );
             }

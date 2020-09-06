@@ -476,7 +476,7 @@ class _MapedState extends State<Maped> {
           context: context,
           builder: (context) {
             return Container(
-              height: 170,
+              height: 145,
               child: Column(
                 children: <Widget>[
                   Container(
@@ -595,7 +595,7 @@ class _MapedState extends State<Maped> {
               child: new GoogleMap(
                 // liteModeEnabled: true,
                 rotateGesturesEnabled: false,
-                zoomGesturesEnabled: false,
+                zoomGesturesEnabled: true,
                 mapType: MapType.normal,
                 zoomControlsEnabled: false,
                 markers: markers,

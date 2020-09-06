@@ -32,7 +32,7 @@ class HeaderProfile extends StatelessWidget {
                       '¡Hola,',
                       style: TextStyle(
                           color: Color(0xff446F7A) ,
-                          fontSize: 20,
+                          fontSize: 19,
                           fontWeight: FontWeight.w700),
                     ),
                     // SizedBox(height: 3),
@@ -40,7 +40,7 @@ class HeaderProfile extends StatelessWidget {
                       '${_.user.name.split(" ")[0]}!',
                       style: TextStyle(
                           color: Color(0xff66A6B7),
-                          fontSize: 21,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

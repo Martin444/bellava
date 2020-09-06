@@ -27,7 +27,7 @@ class OrderDetails extends StatelessWidget {
                 e,
                 style: TextStyle(
                     color: Colors.blueGrey,
-                    fontSize: 19,
+                    fontSize: 17,
                     fontWeight: FontWeight.w900,
                     fontFamily: 'Lato'),
               ))
@@ -349,7 +349,7 @@ class OrderDetails extends StatelessWidget {
                                                     fontFamily: 'Lato'),
                                               ),
                                               Container(
-                                                // width: 130,
+                                                width: Get.width - 100,
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -395,7 +395,7 @@ class OrderDetails extends StatelessWidget {
                                         '${_.order.recolectionStart}',
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: 18,
+                                            fontSize: 17,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: "Lato"),
                                       ),
@@ -435,7 +435,7 @@ class OrderDetails extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               color: Colors.blueGrey,
-                                              fontSize: 18,
+                                              fontSize: 17,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: "Lato"),
                                         ),
@@ -476,7 +476,7 @@ class OrderDetails extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               color: Colors.blueGrey,
-                                              fontSize: 18,
+                                              fontSize: 17,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: "Lato"),
                                         ),
@@ -517,7 +517,7 @@ class OrderDetails extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               color: Colors.blueGrey,
-                                              fontSize: 18,
+                                              fontSize: 17,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: "Lato"),
                                         ),

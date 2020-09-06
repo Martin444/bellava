@@ -59,8 +59,9 @@ class _SlideItemState extends State<SlideItem> {
           height: MediaQuery.of(context).size.width * 0.8,
           width: MediaQuery.of(context).size.height * 0.8,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(sliderArrayList[widget.index].sliderImageUrl))),
+              // image: DecorationImage(
+              //     image: AssetImage(sliderArrayList[widget.index].sliderImageUrl))
+              ),
         ),
         SizedBox(
           height: 60.0,

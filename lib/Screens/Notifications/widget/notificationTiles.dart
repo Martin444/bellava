@@ -13,30 +13,51 @@ class NotificationTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  var diaNoti = noti.date.day;
+  var diaNoti = noti.date;
   var horaNoti = noti.date.hour;
   var minutoNoti = noti.date.minute;
 
   var diferenciaMinuto = DateTime.now().minute - minutoNoti;
-  var diferenciaDia = DateTime.now().day - diaNoti;
+  // var diferenciaDia = DateTime.now().day - diaNoti;
   var diferenciaHora = DateTime.now().hour - horaNoti;
 
-  // print('${diferenciaDia} ${diferenciaHora} ${diferenciaMinuto}');
+
+  var diferencia = DateTime.now().difference(diaNoti);
+
+  print('${diferencia.inDays}');
 
     // ignore: missing_return
     String getDiferenceText(){
-      if(diferenciaDia >= 1){
-        if(diferenciaDia != 1){
-          return 'Hace ${diferenciaDia} dias';
-        } else {
-          return 'Hace ${diferenciaDia} dia';
 
-        }
-      } else if (diferenciaHora <= 24){
-        return 'Hace $diferenciaHora hs';
-      } else if (diferenciaMinuto <= 59){
-        return 'Hace $diferenciaMinuto min';
+      switch (diferencia.inDays == 0) {
+        case true:
+          switch (diferencia.inHours == 0) {
+            case true:
+              return 'Hace ${diferencia.inMinutes} hs';
+              break;
+            case false:
+              return 'Hace ${diferencia.inHours} hs';
+              break;
+            default:
+          }
+          break;
+        case false:
+          return 'Hace ${diferencia.inDays} dias';
+          break;
+        default:
       }
+
+      // if(diferenciaDia >= 1){
+      //   if(diferenciaDia != 1){
+      //     return 'Hace ${diferenciaDia} dias';
+      //   } else {
+      //     return 'Hace ${diferenciaDia} dia';
+      //   }
+      // } else if (diferenciaHora <= 24){
+      //   return 'Hace $diferenciaHora hs';
+      // } else if (diferenciaMinuto <= 59){
+      //   return 'Hace $diferenciaMinuto min';
+      // }
     }
 
   

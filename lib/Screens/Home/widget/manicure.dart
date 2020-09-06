@@ -80,22 +80,28 @@ class _ManicureState extends State<Manicure> {
                     children: [
                       SizedBox(height: 70),
                       Container(
-                        width: Get.width,
-                        height: 100,
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: opacityCeleste1,
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                                fit: BoxFit.cover, image: NetworkImage(_.url))),
-                        child: Center(
-                          child: Text(
-                            'Manicure',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.w400),
+                          decoration: BoxDecoration(
+                              color: opacityCeleste1,
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover, image: NetworkImage(_.url))),
+                          width: Get.width,
+                          height: 100,
+                          // padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(250, 208, 211, 0.5),
+                              borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Manicure',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
                         ),
                       ),
@@ -314,7 +320,7 @@ class _ManicureState extends State<Manicure> {
                 duration: Duration(seconds: 2),
                 child: Container(
                   alignment: AlignmentDirectional.bottomCenter,
-                  height: 95,
+                  height: 75,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:

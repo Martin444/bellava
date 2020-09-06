@@ -49,20 +49,25 @@ class _MasajeState extends State<Masaje> {
                         Container(
                           width: Get.width,
                           height: 100,
-                          padding: EdgeInsets.all(10),
                           margin: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: opacityCeleste1,
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
                                   fit: BoxFit.cover, image: NetworkImage(_.url))),
-                          child: Center(
-                            child: Text(
-                              'Masajes',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(212, 238, 255, 0.4),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Masajes',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),
@@ -110,6 +115,8 @@ class _MasajeState extends State<Masaje> {
                                },
                                'Relaja los músculos aliviando las tensiones que pueden producir en ellos el estrés, la falta de descanso o las malas posturas.Duración: 1 Hs'
                                ),
+                      
+                       SizedBox(height: 60),
                       ],
                     ),
                   ),
@@ -158,7 +165,7 @@ class _MasajeState extends State<Masaje> {
                 duration: Duration(seconds: 2),
                   child: Container(
                     alignment: AlignmentDirectional.bottomCenter,
-                  height: 95,
+                  height: 75,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:

@@ -27,7 +27,7 @@ class TextInput extends StatelessWidget {
         keyboardType: inputType,
         maxLines: maxLines,
         style: TextStyle(
-            fontSize: 19.0,
+            fontSize: 18.0,
             fontFamily: "Lato",
             color: Colors.blueGrey,
             fontWeight: FontWeight.bold),

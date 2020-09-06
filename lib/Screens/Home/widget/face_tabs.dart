@@ -120,20 +120,25 @@ class _FaceTabsState extends State<FaceTabs> {
                       Container(
                         width: Get.width,
                         height: 100,
-                        padding: EdgeInsets.all(10),
                         margin: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: opacityCeleste1,
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
                                 fit: BoxFit.cover, image: NetworkImage(_.url))),
-                        child: Center(
-                          child: Text(
-                            'Pestañas',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(250, 203, 203, 0.5),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Pestañas',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
@@ -479,7 +484,7 @@ class _FaceTabsState extends State<FaceTabs> {
                   duration: Duration(seconds: 2),
                   child: Container(
                     alignment: AlignmentDirectional.bottomCenter,
-                    height: 95,
+                    height: 75,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
