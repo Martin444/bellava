@@ -4,10 +4,12 @@ import 'package:bellava/Screens/Services/widgets/background.dart';
 import 'package:bellava/Screens/Services/widgets/button_next.dart';
 import 'package:bellava/Screens/controllers/Service_controller.dart';
 import 'package:bellava/Utils/consts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileHeader extends StatefulWidget {
   @override
@@ -19,8 +21,10 @@ class _ProfileHeaderState extends State<ProfileHeader> {
 
   UserBloc userBloc;
 
+
   @override
   Widget build(BuildContext context) {
+  
 
      userBloc = BlocProvider.of(context);
     return Scaffold(
@@ -114,20 +118,20 @@ class _ProfileHeaderState extends State<ProfileHeader> {
               ],
             ),
           ),
-          Container(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: Container(
-              height: 80,
-              // width: 215,
-              child: FloatNext(
-                onChanged: () {
-                  userBloc.signOut();
-                },
-                text: 'Cerrar sesión',
-                iconData: Icons.exit_to_app,
-              ),
-            ),
-          ),
+          // Container(
+          //   alignment: AlignmentDirectional.bottomCenter,
+          //   child: Container(
+          //     height: 80,
+          //     // width: 215,
+          //     child: FloatNext(
+          //       onChanged: () {
+          //             cont.singOute();
+          //       },
+          //       text: 'Cerrar sesión',
+          //       iconData: Icons.exit_to_app,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

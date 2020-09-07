@@ -10,7 +10,7 @@ class BoldText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style:TextStyle(fontFamily: "nunito" ,fontWeight: isVeryBold?FontWeight.w900: FontWeight.w700,color:color,fontSize: size));
+    return Text(text,textAlign: TextAlign.center,style:TextStyle(fontFamily: "nunito" ,fontWeight: isVeryBold?FontWeight.w900: FontWeight.w700,color:color,fontSize: size));
   }
 }
 

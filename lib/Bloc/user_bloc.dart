@@ -45,9 +45,7 @@ class UserBloc implements Bloc {
 
 
 
-    signOut() {
-    _auth_repository.signOut();
-  }
+    Future<void> signOut() async => _auth_repository.signOut();
 
   @override
   void dispose() {

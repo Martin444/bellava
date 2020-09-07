@@ -55,13 +55,17 @@ class _SlideItemState extends State<SlideItem> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          height: MediaQuery.of(context).size.width * 0.8,
-          width: MediaQuery.of(context).size.height * 0.8,
-          decoration: BoxDecoration(
-              // image: DecorationImage(
-              //     image: AssetImage(sliderArrayList[widget.index].sliderImageUrl))
-              ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            height: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.height * 0.8,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                    image: AssetImage(sliderArrayList[widget.index].sliderImageUrl))
+                ),
+          ),
         ),
         SizedBox(
           height: 60.0,
@@ -74,10 +78,10 @@ class _SlideItemState extends State<SlideItem> {
           child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: widget.index != 2
-                  ? NormalText(sliderArrayList[widget.index].sliderSubHeading,kblack, 12.5)
+                  ? NormalText(sliderArrayList[widget.index].sliderSubHeading,kblack, 13.5)
                   : Column(
                       children: <Widget>[
-                        NormalText(sliderArrayList[widget.index].sliderSubHeading,kblack, 10.5),
+                        NormalText(sliderArrayList[widget.index].sliderSubHeading,kblack, 13.5),
                         SizedBox(
                           height: 10,
                         ),

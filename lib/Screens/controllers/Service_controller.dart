@@ -15,6 +15,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ServiceController extends GetxController {
   User _user;
@@ -192,6 +193,8 @@ class ServiceController extends GetxController {
       _notis.add(NotificationTiles(
         noti: data,
       ));
+
+      update();
     });
   }
 
@@ -206,12 +209,22 @@ class ServiceController extends GetxController {
     // setDataUser();
   }
 
+  Future<void> singOute() async {
+    // await GoogleSignIn.signOut();
+    await FirebaseAuth.instance.signOut().then((value) => {
+      print('list')
+    }).catchError((e)=> print(e));
+  }
+
   Future<void> setDataUser() async {
     var dataUser = await FirebaseAuth.instance.onAuthStateChanged;
+
+    await print(dataUser);
+
     await dataUser.forEach((e) {
       // print(e.displayName);
       _user = User(
-        uid: e.uid,
+        uid: e.uid ?? '',
         name: e.displayName,
         email: e.email,
         photoURL: e.photoUrl ??
@@ -222,6 +235,8 @@ class ServiceController extends GetxController {
     });
     //
   }
+
+  
 
   getFeedBack(uidOrder) {}
 

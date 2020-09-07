@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
 
-    // servi.setDataUser();
+    servi.setDataUser();
   }
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = ServicePage();
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               );
             } else {
 
-                _.setDataUser();
+                // _.setDataUser();
               
               
               return Scaffold(
