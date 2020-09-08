@@ -369,6 +369,8 @@ class ServiceController extends GetxController {
           )
         
         ],
+      
+      
       ));
     });
   }

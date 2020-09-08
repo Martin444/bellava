@@ -33,7 +33,7 @@ class NotificationTiles extends StatelessWidget {
         case true:
           switch (diferencia.inHours == 0) {
             case true:
-              return 'Hace ${diferencia.inMinutes} hs';
+              return 'Hace ${diferencia.inMinutes} min';
               break;
             case false:
               return 'Hace ${diferencia.inHours} hs';
