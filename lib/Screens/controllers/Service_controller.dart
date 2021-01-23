@@ -15,7 +15,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:bellava/Screens/Home/init.dart';
+import 'package:bellava/Screens/Home/FormData.dart';
 
 class ServiceController extends GetxController {
   User _user;
@@ -23,6 +24,12 @@ class ServiceController extends GetxController {
   String _url;
   int _star = 0;
   int get star => _star;
+  Widget _pageDecide = Scaffold(
+                    body: Center(
+                      child: LinearProgressIndicator(),
+                    ),
+                  );
+  Widget get pageDecide => _pageDecide;
 
   List<Notificatione> notificatione;
 
@@ -219,7 +226,7 @@ class ServiceController extends GetxController {
   Future<void> setDataUser() async {
     var dataUser = await FirebaseAuth.instance.onAuthStateChanged;
 
-    await print(dataUser);
+  
 
     await dataUser.forEach((e) {
       // print(e.displayName);
@@ -231,12 +238,50 @@ class ServiceController extends GetxController {
             'https://static.dribbble.com/users/460298/screenshots/4289309/nick0_copy.jpg',
       );
 
+  
+         var dataUser = Firestore.instance.collection('users').document(_user.uid).snapshots();
+          
+          dataUser.forEach((value) =>{
+              _user = User(
+                uid: value.data['uid'], 
+                name: value.data['name'], 
+                email: value.data['email'], 
+                photoURL: value.data['photoURL'],
+                phoneNumber: value.data['phoneNumber'],
+                adress: value.data['adress'],
+                latitlude: value.data['latitude'],
+                longitude: value.data['longitude'],
+                barrio: value.data['barrio']),
+            print(_user.adress),
+            _user.adress != null ?
+              _pageDecide = InitPageHome()
+            :
+              _pageDecide = FormData(),
+              update()
+            
+          });
+    //       .((value) => {
+    //          // print(value.data['name'])
+          
+
+    //  });
+
+     
+
       update();
     });
     //
   }
 
-  
+  Widget getPage (){
+      switch (_user.adress) {
+        case null:
+          return FormData();
+          break;
+        default:
+          return InitPageHome();  
+      }
+    }
 
   getFeedBack(uidOrder) {}
 
@@ -372,6 +417,8 @@ class ServiceController extends GetxController {
       
       
       ));
+    
+    
     });
   }
 

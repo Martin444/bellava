@@ -48,7 +48,7 @@ class _CardOrderState extends State<CardOrder> {
     bool star4 = false;
     bool star5 = false;
 
-    List<Icon> stars = new List<Icon>();
+    List<Icon> stars =  List<Icon>();
 
     if (widget.order.stars != null) {
       widget.order.stars.forEach((e) {
@@ -364,14 +364,14 @@ class _CardOrderState extends State<CardOrder> {
                           '${widget.order.type.split(" ")[0]}...',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 16,
                               color: Colors.blueGrey),
                         ),
                         Text(
                           widget.order.recolectionStart,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              // fontSize: 13,
                               color: Colors.blueGrey),
                         ),
                       ],
@@ -397,5 +397,6 @@ class _CardOrderState extends State<CardOrder> {
             ],
           )),
     );
+  
   }
 }

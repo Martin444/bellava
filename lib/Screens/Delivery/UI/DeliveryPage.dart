@@ -22,6 +22,14 @@ class DeliveryPage extends StatefulWidget {
   // User user;
   FormInfo form;
 
+  // Servicio extra para cuando se seleciona un profesional y dejar el actual como un default en caso de que no se seleccione un profesional
+
+  // Agregar una nueva pantalla en donde se pueda seleccionar un profesional (Como se marca en el Word)
+
+  // agregar los nuevos inputs cuando se crea al profesional
+
+  // Investigar 
+
   DeliveryPage({Key key, this.form});
 
   @override

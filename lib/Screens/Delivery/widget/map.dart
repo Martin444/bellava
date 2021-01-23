@@ -579,348 +579,354 @@ class _MapedState extends State<Maped> {
         builder: (_) => Scaffold(
           backgroundColor: Colors.grey[200],
           key: _scaffoldKey,
-          body: Stack(children: <Widget>[
-            // Mapa
-            Container(
-              margin: EdgeInsets.only(top:250),
-              alignment: Alignment.bottomCenter,
-              height: 400,
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                    color: Colors.black45,
-                    offset: Offset(1.4, 0.3),
-                    spreadRadius: 1.0,
-                    blurRadius: 17.0)
-              ], borderRadius: BorderRadius.circular(100)),
-              child: new GoogleMap(
-                // liteModeEnabled: true,
-                rotateGesturesEnabled: false,
-                zoomGesturesEnabled: true,
-                mapType: MapType.normal,
-                zoomControlsEnabled: false,
-                markers: markers,
-                initialCameraPosition: CameraPosition(
-                  bearing: 90,
-                  tilt: 50.0,
-                  target:
-                      LatLng(_locationData.latitude, _locationData.longitude),
-                  zoom: 15,
-                ),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = controller;
-                },
-                onTap: (newUbi) {
-                  setState(() {
-                    markers.add(Marker(
-                        markerId: MarkerId("yo"),
-                        position: newUbi,
-                        icon: this.icon));
-                    _lat = newUbi;
-                  });
-
-                  _controller.animateCamera(CameraUpdate.newLatLng(newUbi));
-                },
-              ),
-            ),
-
-            AnimatedContainer(
-              alignment: AlignmentDirectional.bottomCenter,
-              duration: Duration(seconds: 2),
-              child: Container(
-                alignment: AlignmentDirectional.bottomCenter,
-                height: 80,
+          body: SafeArea(
+            
+            child: Stack(
+              children: <Widget>[
+              // Mapa
+              Container(
+                margin: EdgeInsets.only(top:250),
+                alignment: Alignment.bottomCenter,
+                height: 400,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(22), topRight: Radius.circular(22))),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('Total a pagar',
-                                style: TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.w700)),
-                            Text('${widget.form.price} Pesos',
-                                style: TextStyle(
-                                    color: Color(0xff77D499),
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        )),
-                    FloatNext(
-                      text: 'Siguiente',
-                      iconData: Icons.arrow_forward,
-                      onChanged: () {
-                        if (busqueda.text != "") {
-                          if (isEdifice || isOffice) {
-                            numPiso.text.isEmpty
-                                ? _showSnackBar(
-                                    "Completa tu número de piso y departamento")
-                                : setState(() {
-                                    pressBtn = !pressBtn;
-                                  });
-                            _showBottomSheet();
-                          } else {
-                            _showBottomSheet();
-                          }
-                        } else {
-                          _showSnackBar('Escribe tu dirección en el buscador');
-                        }
-                      },
-                    ),
-                  ],
+                  boxShadow: [
+                  BoxShadow(
+                      color: Colors.black45,
+                      offset: Offset(1.4, 0.3),
+                      spreadRadius: 1.0,
+                      blurRadius: 17.0)
+                ], borderRadius: BorderRadius.circular(100)),
+                child: new GoogleMap(
+                  // liteModeEnabled: true,
+                  rotateGesturesEnabled: false,
+                  zoomGesturesEnabled: true,
+                  mapType: MapType.normal,
+                  zoomControlsEnabled: false,
+                  markers: markers,
+                  initialCameraPosition: CameraPosition(
+                    bearing: 90,
+                    tilt: 50.0,
+                    target:
+                        LatLng(_locationData.latitude, _locationData.longitude),
+                    zoom: 15,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller = controller;
+                  },
+                  onTap: (newUbi) {
+                    setState(() {
+                      markers.add(Marker(
+                          markerId: MarkerId("yo"),
+                          position: newUbi,
+                          icon: this.icon));
+                      _lat = newUbi;
+                    });
+
+                    _controller.animateCamera(CameraUpdate.newLatLng(newUbi));
+                  },
                 ),
               ),
-            ),
 
-            //Tipo de casa
-            AnimatedContainer(
-              duration: Duration(milliseconds: 400),
-              height: isEdifice || isOffice ? 250 : 175,
-              padding: EdgeInsets.only(top: 0, bottom: 2),
-              margin: EdgeInsets.only(top: 80.0, left: 20.0, right: 20.0),
-              decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.all(Radius.circular(9.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 15.0,
-                        offset: Offset(0.0, 7.0))
-                  ]),
-              child: Column(
-                children: <Widget>[
-                  // Input De busqueda
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: AddressSearchField(
-                      controller: busqueda,
-                      coordForRef: true,
-                      decoration: InputDecoration(
-                          hintText: busqueda.text.length == 0
-                              ? "Buscar"
-                              : "${busqueda.text}",
-                          suffixIcon: SvgPicture.asset(
-                              'assets/icons/location-marker.svg',
-                              fit: BoxFit.none,
-                              width: 5,
-                              color: Colors.blueGrey),
-                          fillColor: opacityCeleste2,
-                          filled: true,
-                          border: InputBorder.none,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFFFFFFFF)),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12.0)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFFFFFFFF)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)))),
-                      style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold),
-                      country: "Argentina",
-                      city: "Buenos Aires",
-                      hintText: "Busca una dirección",
-                      noResultsText:
-                          "Si no encuentras el lugar pero puedes moverte tocando la pantalla",
-                      onDone: (BuildContext dialogContext, AddressPoint point) {
-                        markers.add(Marker(
-                            markerId: MarkerId("yo"),
-                            position: LatLng(point.latitude, point.longitude),
-                            icon: this.icon));
-                        setState(() {
-                          _lat = LatLng(point.latitude, point.longitude);
-                        });
-                        _controller.animateCamera(CameraUpdate.newLatLng(_lat));
-                        Navigator.pop(context);
-                      },
+              AnimatedContainer(
+                alignment: AlignmentDirectional.bottomCenter,
+                duration: Duration(seconds: 2),
+                child: Container(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  height: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)
                     ),
-                  ),
-
-                  Column(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
-                        '¿Como es tu vivienda?',
-                        style: TextStyle(
-                            color: Colors.blueGrey,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 5),
-                      //Barrio
                       Container(
-                        padding: EdgeInsets.only(
-                            left: 10.0, right: 10.0, top: 2, bottom: 2),
-                        // margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-                        decoration: BoxDecoration(
-                          color: opacityCeleste2,
-                          borderRadius: BorderRadius.all(Radius.circular(9.0)),
-                          // boxShadow: <BoxShadow>[
-                          //   BoxShadow(
-                          //       color: Colors.black12,
-                          //       blurRadius: 15.0,
-                          //       offset: Offset(0.0, 7.0))
-                          // ]
-                        ),
-                        child: DropdownButton<String>(
-                            underline: Container(
-                              decoration: const BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(color: Colors.white))),
-                            ),
-                            value: _controllerTypeHouse,
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 26,
-                            ),
-                            hint: Container(
-                              padding: EdgeInsets.only(top: 18),
-                              // margin: EdgeInsets.only(right: 5),
-                              height: MediaQuery.of(context).size.height / 11,
-                              width: MediaQuery.of(context).size.width / 1.50,
-                              child: Text(
-                                'Selecciona tu Barrio',
-                                style: TextStyle(
-                                  fontSize: 19.0,
-                                  fontFamily: "Lato",
-                                  color: Colors.blueGrey,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            items: <String>[
-                              'Casa',
-                              'Edificio',
-                              'Oficina',
-                              'Otro',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      value,
-                                      style: TextStyle(
-                                          fontSize: 19.0,
-                                          fontFamily: 'Lato',
-                                          color: Colors.blueGrey,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    // Icon( isOffice || isEdifice ? Icons.location_city: Icons.home),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String value) {
-                              setState(() {
-                                _controllerTypeHouse = value;
-                              });
-
-                              switch (_controllerTypeHouse) {
-                                case 'Oficina':
-                                  setState(() {
-                                    isOffice = true;
-                                    isEdifice = false;
-                                  });
-                                  break;
-                                case 'Edificio':
-                                  setState(() {
-                                    isOffice = false;
-                                    isEdifice = true;
-                                  });
-                                  break;
-
-                                case 'Casa':
-                                  setState(() {
-                                    isOffice = false;
-                                    isEdifice = false;
-                                  });
-                                  break;
-                                case 'Otro':
-                                  setState(() {
-                                    isOffice = false;
-                                    isEdifice = false;
-                                  });
-                                  break;
-                                default:
-                              }
-                            }),
+                          padding: EdgeInsets.only(left: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text('Total a pagar',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w700)),
+                              Text('${widget.form.price} Pesos',
+                                  style: TextStyle(
+                                      color: Color(0xff77D499),
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          )),
+                      FloatNext(
+                        text: 'Siguiente',
+                        iconData: Icons.arrow_forward,
+                        onChanged: () {
+                          if (busqueda.text != "") {
+                            if (isEdifice || isOffice) {
+                              numPiso.text.isEmpty
+                                  ? _showSnackBar(
+                                      "Completa tu número de piso y departamento")
+                                  : setState(() {
+                                      pressBtn = !pressBtn;
+                                    });
+                              _showBottomSheet();
+                            } else {
+                              _showBottomSheet();
+                            }
+                          } else {
+                            _showSnackBar('Escribe tu dirección en el buscador');
+                          }
+                        },
                       ),
                     ],
                   ),
-
-                  isEdifice || isOffice
-                      ? Container(
-                          // height: 150,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              SizedBox(
-                                height: 15,
-                              ),
-                              TextInputLocation(
-                                hintText: 'Piso y departamento',
-                                controller: numPiso,
-                                tipoTeclado: TextInputType.text,
-                              ),
-                            ],
-                          ),
-                        )
-                      : Container()
-                ],
+                ),
               ),
-            ),
 
-            // BarTop
-            SafeArea(
-              child: Container(
-                width: Get.width,
-                padding: EdgeInsets.all(10),
-                child: Stack(
-                  children: [
+              //Tipo de casa
+              AnimatedContainer(
+                duration: Duration(milliseconds: 400),
+                height: isEdifice || isOffice ? 250 : 175,
+                padding: EdgeInsets.only(top: 0, bottom: 2),
+                margin: EdgeInsets.only(top: 80.0, left: 20.0, right: 20.0),
+                decoration: BoxDecoration(
+                    color: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 15.0,
+                          offset: Offset(0.0, 7.0))
+                    ]),
+                child: Column(
+                  children: <Widget>[
+                    // Input De busqueda
                     Container(
-                      width: Get.width,
-                      height: 90,
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      child: Text(
-                        'Ubicación',
-                        textAlign: TextAlign.center,
+                      padding: EdgeInsets.all(10.0),
+                      child: AddressSearchField(
+                        controller: busqueda,
+                        coordForRef: true,
+                        decoration: InputDecoration(
+                            hintText: busqueda.text.length == 0
+                                ? "Buscar"
+                                : "${busqueda.text}",
+                            suffixIcon: SvgPicture.asset(
+                                'assets/icons/location-marker.svg',
+                                fit: BoxFit.none,
+                                width: 5,
+                                color: Colors.blueGrey),
+                            fillColor: opacityCeleste2,
+                            filled: true,
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFFFFFFFF)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.0)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFFFFFFFF)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0)))),
                         style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 19),
-                      ),
-                    ),
-                    Container(
-                      width: 45,
-                      height: 45,
-                      child: FlatButton(
-                        child: Center(
-                            child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.black87,
-                        )),
-                        onPressed: () {
+                            color: Colors.blueGrey,
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold),
+                        country: "Argentina",
+                        city: "Buenos Aires",
+                        hintText: "Busca una dirección",
+                        noResultsText:
+                            "Si no encuentras el lugar pero puedes moverte tocando la pantalla",
+                        onDone: (BuildContext dialogContext, AddressPoint point) {
+                          markers.add(Marker(
+                              markerId: MarkerId("yo"),
+                              position: LatLng(point.latitude, point.longitude),
+                              icon: this.icon));
+                          setState(() {
+                            _lat = LatLng(point.latitude, point.longitude);
+                          });
+                          _controller.animateCamera(CameraUpdate.newLatLng(_lat));
                           Navigator.pop(context);
                         },
                       ),
                     ),
+
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          '¿Como es tu vivienda?',
+                          style: TextStyle(
+                              color: Colors.blueGrey,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 5),
+                        //Barrio
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 10.0, right: 10.0, top: 2, bottom: 2),
+                          // margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                          decoration: BoxDecoration(
+                            color: opacityCeleste2,
+                            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                            // boxShadow: <BoxShadow>[
+                            //   BoxShadow(
+                            //       color: Colors.black12,
+                            //       blurRadius: 15.0,
+                            //       offset: Offset(0.0, 7.0))
+                            // ]
+                          ),
+                          child: DropdownButton<String>(
+                              underline: Container(
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(color: Colors.white))),
+                              ),
+                              value: _controllerTypeHouse,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                size: 26,
+                              ),
+                              hint: Container(
+                                padding: EdgeInsets.only(top: 18),
+                                // margin: EdgeInsets.only(right: 5),
+                                height: MediaQuery.of(context).size.height / 11,
+                                width: MediaQuery.of(context).size.width / 1.50,
+                                child: Text(
+                                  'Selecciona tu Barrio',
+                                  style: TextStyle(
+                                    fontSize: 19.0,
+                                    fontFamily: "Lato",
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              items: <String>[
+                                'Casa',
+                                'Edificio',
+                                'Oficina',
+                                'Otro',
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        value,
+                                        style: TextStyle(
+                                            fontSize: 19.0,
+                                            fontFamily: 'Lato',
+                                            color: Colors.blueGrey,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      // Icon( isOffice || isEdifice ? Icons.location_city: Icons.home),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (String value) {
+                                setState(() {
+                                  _controllerTypeHouse = value;
+                                });
+
+                                switch (_controllerTypeHouse) {
+                                  case 'Oficina':
+                                    setState(() {
+                                      isOffice = true;
+                                      isEdifice = false;
+                                    });
+                                    break;
+                                  case 'Edificio':
+                                    setState(() {
+                                      isOffice = false;
+                                      isEdifice = true;
+                                    });
+                                    break;
+
+                                  case 'Casa':
+                                    setState(() {
+                                      isOffice = false;
+                                      isEdifice = false;
+                                    });
+                                    break;
+                                  case 'Otro':
+                                    setState(() {
+                                      isOffice = false;
+                                      isEdifice = false;
+                                    });
+                                    break;
+                                  default:
+                                }
+                              }),
+                        ),
+                      ],
+                    ),
+
+                    isEdifice || isOffice
+                        ? Container(
+                            // height: 150,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                TextInputLocation(
+                                  hintText: 'Piso y departamento',
+                                  controller: numPiso,
+                                  tipoTeclado: TextInputType.text,
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container()
                   ],
                 ),
               ),
-            ),
-          ]),
+
+              // BarTop
+              SafeArea(
+                child: Container(
+                  width: Get.width,
+                  padding: EdgeInsets.all(10),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: Get.width,
+                        height: 90,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Text(
+                          'Ubicación',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 19),
+                        ),
+                      ),
+                      Container(
+                        width: 45,
+                        height: 45,
+                        child: FlatButton(
+                          child: Center(
+                              child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.black87,
+                          )),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ]),
+          ),
         ),
       );
     } else {

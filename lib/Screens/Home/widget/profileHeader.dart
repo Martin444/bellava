@@ -86,32 +86,132 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                 Container(
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(
                     children: [
-                      SvgPicture.asset('assets/icons/mail.svg',
-                          height: 30, color: kceleste1),
-                      SizedBox(width: 10),
-                      Column(
+                     
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            'Correo electronico',
-                            style: TextStyle(
-                                fontSize: 19,
-                                color: Colors.blueGrey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            cont.user.email,
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.blueGrey,
-                                fontWeight: FontWeight.w400),
-                          ),
+                          SvgPicture.asset('assets/icons/mail.svg',
+                              height: 30, color: kceleste1),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Correo electronico',
+                                style: TextStyle(
+                                    fontSize: 19,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                cont.user.email,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
                         ],
-                      )
+                      ),
+                    
+                      SizedBox(height: 10,),
+ 
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset('assets/icons/location-marker.svg',
+                              height: 30, color: kceleste1),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Barrio',
+                                style: TextStyle(
+                                    fontSize: 19,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                cont.user.barrio,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    
+                      SizedBox(height: 10,),
+                      
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset('assets/icons/location-marker.svg',
+                              height: 30, color: kceleste1),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Dirección',
+                                style: TextStyle(
+                                    fontSize: 19,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                cont.user.adress,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                   
+
+                      SizedBox(height: 10,),
+                    
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset('assets/icons/phone.svg',
+                              height: 30, color: kceleste1),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Número de Teléfono',
+                                style: TextStyle(
+                                    fontSize: 19,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                cont.user.phoneNumber,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.blueGrey,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      
                     ],
                   ),
                 )

@@ -19,7 +19,7 @@ class FormInfo {
 
 
   FormInfo({
-    Key key,
+    @required Key key,
     @required this.fecha,
     @required this.descripcion,
     @required this.flexible,

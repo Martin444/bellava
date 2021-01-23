@@ -6,7 +6,7 @@ class ButtonGreen extends StatefulWidget {
   double height = 0.0;
   final VoidCallback onPressed;
 
-  ButtonGreen({Key key, @required this.text, @required this.onPressed, this.height, this.width});
+  ButtonGreen({@required Key key, @required this.text, @required this.onPressed, @required this.height, @required this.width});
 
   @override
   _ButtonGreenState createState() => _ButtonGreenState();

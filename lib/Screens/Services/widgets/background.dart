@@ -74,8 +74,10 @@ class _BackGradientState extends State<BackGradient> {
                 ),
               
           ),
+        
         ],
       ),
+    
     );
   }
 }

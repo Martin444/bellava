@@ -10,25 +10,15 @@ class NotificationTiles extends StatelessWidget {
 
   NotificationTiles({this.noti});
 
-
   @override
   Widget build(BuildContext context) {
-  var diaNoti = noti.date;
-  var horaNoti = noti.date.hour;
-  var minutoNoti = noti.date.minute;
+    var diaNoti = noti.date;
+    var diferencia = DateTime.now().difference(diaNoti);
 
-  var diferenciaMinuto = DateTime.now().minute - minutoNoti;
-  // var diferenciaDia = DateTime.now().day - diaNoti;
-  var diferenciaHora = DateTime.now().hour - horaNoti;
-
-
-  var diferencia = DateTime.now().difference(diaNoti);
-
-  print('${diferencia.inDays}');
+    print('${diferencia.inDays}');
 
     // ignore: missing_return
-    String getDiferenceText(){
-
+    String getDiferenceText() {
       switch (diferencia.inDays == 0) {
         case true:
           switch (diferencia.inHours == 0) {
@@ -60,10 +50,8 @@ class NotificationTiles extends StatelessWidget {
       // }
     }
 
-  
-
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         servi.readNotifications(noti.uid);
       },
       child: Container(
@@ -76,9 +64,8 @@ class NotificationTiles extends StatelessWidget {
               height: 10,
               width: 10,
               decoration: BoxDecoration(
-                color: noti.read ? Colors.grey : Colors.green,
-                borderRadius: BorderRadius.circular(20)
-              ),
+                  color: noti.read ? Colors.grey : Colors.green,
+                  borderRadius: BorderRadius.circular(20)),
             ),
             SizedBox(width: 10),
             Column(
@@ -87,20 +74,20 @@ class NotificationTiles extends StatelessWidget {
               children: [
                 Container(
                   width: Get.width - 40,
-                  child: Text('${noti.text}',
+                  child: Text(
+                    '${noti.text}',
                     style: TextStyle(
-                      color: Colors.blueGrey[700],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19
-                    ),
+                        color: Colors.blueGrey[700],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19),
                   ),
                 ),
-                Text(getDiferenceText(),
+                Text(
+                  getDiferenceText(),
                   style: TextStyle(
-                    color: Colors.blueGrey[400],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17
-                  ),
+                      color: Colors.blueGrey[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17),
                 )
               ],
             )

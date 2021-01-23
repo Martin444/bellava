@@ -15,6 +15,7 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
     return Container(
       padding: EdgeInsets.only(right: 20.0, left: 20.0),
       margin: EdgeInsets.only(top: 60),
@@ -44,5 +45,6 @@ class TextInput extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(9.0)))),
       ),
     );
+  
   }
 }

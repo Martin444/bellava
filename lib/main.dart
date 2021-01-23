@@ -3,23 +3,21 @@ import 'package:bellava/Screens/SplashScreen/splash_screen.dart';
 import 'package:bellava/Screens/controllers/Order_controller.dart';
 import 'package:bellava/Screens/controllers/Service_controller.dart';
 import 'package:bellava/provider/push_notification_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
-
-
-  
-  @override
-  _MyAppState createState() => _MyAppState();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
+
+
+class MyApp extends StatelessWidget {
 
   
  

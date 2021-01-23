@@ -19,12 +19,12 @@ class TextInputLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0),
+      padding: EdgeInsets.only(right: 10.0, left: 10.0),
       child: TextField(
         keyboardType: tipoTeclado,
         controller: controller,
         style: TextStyle(
-            fontSize: 19.0,
+            fontSize: 16.0,
             fontFamily: "Lato",
             color: Colors.blueGrey,
             fontWeight: FontWeight.bold
