@@ -1,6 +1,7 @@
 import 'package:bellava/Models/formInfo.dart';
 import 'package:bellava/Models/user.dart';
 import 'package:bellava/Screens/Delivery/UI/DeliveryPage.dart';
+import 'package:bellava/Screens/Home/ProfesionalSelect.dart';
 import 'package:bellava/Screens/Services/widgets/background.dart';
 import 'package:bellava/Screens/Services/widgets/bar_top.dart';
 import 'package:bellava/Screens/Services/widgets/button_next.dart';
@@ -80,19 +81,19 @@ class _ManicureState extends State<Manicure> {
                     children: [
                       SizedBox(height: 70),
                       Container(
-                          decoration: BoxDecoration(
-                              color: opacityCeleste1,
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  fit: BoxFit.cover, image: NetworkImage(_.url))),
-                          width: Get.width,
-                          height: 100,
-                          // padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: opacityCeleste1,
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                fit: BoxFit.cover, image: NetworkImage(_.url))),
+                        width: Get.width,
+                        height: 100,
+                        // padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(10),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Color.fromRGBO(250, 208, 211, 0.5),
-                              borderRadius: BorderRadius.circular(20),
+                            color: Color.fromRGBO(250, 208, 211, 0.5),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Center(
                             child: Text(
@@ -105,7 +106,6 @@ class _ManicureState extends State<Manicure> {
                           ),
                         ),
                       ),
-                      
                       CardCategory('Esmaltado Común', '${price1}', count1, () {
                         if (count1 >= 0) {
                           setState(() {
@@ -327,27 +327,26 @@ class _ManicureState extends State<Manicure> {
                           BorderRadius.only(topLeft: Radius.circular(22))),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Container(
-                          padding: EdgeInsets.only(
-                               left: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('Total a pagar',
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.w700)),
-                              Text('${Total} Pesos',
-                                  style: TextStyle(
-                                      color: Color(0xff77D499),
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          )),
+                      // Container(
+                      //     padding: EdgeInsets.only(left: 20),
+                      //     child: Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.start,
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: <Widget>[
+                      //         Text('Total a pagar',
+                      //             style: TextStyle(
+                      //                 color: Colors.blueGrey,
+                      //                 fontSize: 19,
+                      //                 fontWeight: FontWeight.w700)),
+                      //         Text('${Total} Pesos',
+                      //             style: TextStyle(
+                      //                 color: Color(0xff77D499),
+                      //                 fontSize: 28,
+                      //                 fontWeight: FontWeight.bold)),
+                      //       ],
+                      //     )),
                       Container(
                         width: 190,
                         child: FloatNext(
@@ -358,8 +357,9 @@ class _ManicureState extends State<Manicure> {
                             Total > 0
                                 ? Navigator.push(context,
                                     MaterialPageRoute(builder: (_) {
-                                    return DeliveryPage(
-                                        form: FormInfo(
+                                    return ProfesionalSelect(
+                                        name: 'Manicura',
+                                        info: FormInfo(
                                             fecha: "",
                                             descripcion: "",
                                             flexible: false,
@@ -369,35 +369,104 @@ class _ManicureState extends State<Manicure> {
                                             numeroTelefono: "",
                                             services: [
                                               count1 >= 1
-                                                  ? "Esmaltado Común: ${count1}"
-                                                  : null,
+                                                  ? {
+                                                      'name': 'Esmaltado Común',
+                                                      'count': count1,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count2 >= 1
-                                                  ? "Esmaltado Semipermanente: ${count2}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Esmaltado Semipermanente',
+                                                      'count': count2,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count3 >= 1
-                                                  ? "Esculpidas (Gel o Acrílico) con esmalte común: ${count3}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Esculpidas (Gel o Acrílico) con esmalte común',
+                                                      'count': count3,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count4 >= 1
-                                                  ? "Esculpidas (Gel o Acrílico) con esmalte semi: ${count4}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Esculpidas (Gel o Acrílico) con esmalte semi',
+                                                      'count': count4,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count5 >= 1
-                                                  ? "Service de esculpidas con esmalte común: ${count5}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Service de esculpidas con esmalte común',
+                                                      'count': count5,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count6 >= 1
-                                                  ? "Service de esculpidas con esmalte semi: ${count6}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Service de esculpidas con esmalte semi',
+                                                      'count': count6,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count7 >= 1
-                                                  ? "Service de semi con esmalte común: ${count7}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Service de semi con esmalte común',
+                                                      'count': count7,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count8 >= 1
-                                                  ? "Service de semipermanente con esmalte semi: ${count8}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Service de semipermanente con esmalte semi',
+                                                      'count': count8,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count9 >= 1
-                                                  ? "Decoración simple por uña: ${count8}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Decoración simple por uña',
+                                                      'count': count9,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                               count10 >= 1
-                                                  ? "Decoración diseño por uña: ${count10}"
-                                                  : null,
+                                                  ? {
+                                                      'name':
+                                                          'Decoración diseño por uña',
+                                                      'count': count10,
+                                                    }
+                                                  : {
+                                                      'name': 't',
+                                                      'count': 0,
+                                                    },
                                             ],
                                             price: Total,
                                             type: 'Manicura'));
@@ -410,8 +479,6 @@ class _ManicureState extends State<Manicure> {
                   ),
                 ),
               )
-            
-            
             ],
           ),
         ),

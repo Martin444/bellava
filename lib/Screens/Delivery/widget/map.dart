@@ -1,11 +1,7 @@
 import 'package:address_search_field/address_search_field.dart';
-import 'package:bellava/Models/masajes.dart';
-import 'package:bellava/Models/user.dart';
-import 'package:bellava/Screens/Delivery/widget/button_purple.dart';
 import 'package:bellava/Screens/Delivery/widget/text_input_location.dart';
 import 'package:bellava/Screens/Home/home.dart';
 import 'package:bellava/Screens/Services/widgets/button_next.dart';
-import 'package:bellava/Screens/Success/success.dart';
 import 'package:bellava/Screens/controllers/Service_controller.dart';
 import 'package:bellava/Utils/anim/delayed_reveal.dart';
 import 'package:bellava/Utils/consts.dart';
@@ -15,8 +11,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:bellava/Models/formInfo.dart';
-import 'package:intl/intl.dart';
-import 'dart:async';
 
 import 'package:location/location.dart';
 import 'package:mercado_pago_mobile_checkout/mercado_pago_mobile_checkout.dart';
@@ -39,14 +33,14 @@ class _MapedState extends State<Maped> {
 
   GoogleMapController _controller;
   // Variables para la localizacion
-  Location location = new Location();
+  Location location = Location();
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
   LatLng _lat = LatLng(0.0, 0.0);
   Set<Marker> markers = Set();
-  String _selectedPayment = "";
-  String _controllerTypeHouse = "Casa";
+  String _selectedPayment = '';
+  String _controllerTypeHouse = 'Casa';
 
   bool isHose = true;
   bool isEdifice = false;
@@ -62,10 +56,11 @@ class _MapedState extends State<Maped> {
   BitmapDescriptor icon;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  _showSnackBar(text) {
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> _showSnackBar(
+      text) {
     final snackBar = SnackBar(content: Text(text));
 
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    return _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   @override
@@ -84,7 +79,7 @@ class _MapedState extends State<Maped> {
   }
 
   // Funcion que inicia la busqueda de la ubicacion
-  _getLocation() async {
+  Future<void> _getLocation() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
@@ -112,7 +107,7 @@ class _MapedState extends State<Maped> {
 
   @override
   Widget build(BuildContext context) {
-    _alertPayTarget() {
+    Future _alertPayTarget() {
       return showModalBottomSheet(
           backgroundColor: Colors.transparent,
           context: context,
@@ -160,8 +155,8 @@ class _MapedState extends State<Maped> {
     }
 
     //DIalog para el pago en efectivo
-    createAlertDialog(BuildContext context) {
-      List<Text> servs = new List<Text>();
+    Future createAlertDialog(BuildContext context) {
+      var servs = <Text>[];
 
       widget.form.services.forEach((e) {
         e != null
@@ -181,296 +176,293 @@ class _MapedState extends State<Maped> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-                contentPadding: EdgeInsets.all(5),
-                // actionsPadding: EdgeInsets.all(5),
-                elevation: 0.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                title: Center(
-                    child: Text(
-                  'Pagar',
-                  style: TextStyle(
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
-                content: Container(
-                  child: ListView(
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          widget.form.services.length >= 1
-                              ? Container(
-                                  margin: EdgeInsets.only(top: 10, bottom: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(left:5, right: 10),
-                                        child: SvgPicture.asset(
-                                            'assets/icons/clipboard-list.svg',
-                                            color: kceleste1),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Servicios',
-                                            style: TextStyle(
-                                                color: Colors.blueGrey,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: 'Lato'),
+              contentPadding: EdgeInsets.all(5),
+              // actionsPadding: EdgeInsets.all(5),
+              elevation: 0.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              title: Center(
+                  child: Text(
+                'Pagar',
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
+              content: Container(
+                child: ListView(
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        widget.form.services.length >= 1
+                            ? Container(
+                                margin: EdgeInsets.only(top: 10, bottom: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding:
+                                          EdgeInsets.only(left: 5, right: 10),
+                                      child: SvgPicture.asset(
+                                          'assets/icons/clipboard-list.svg',
+                                          color: kceleste1),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Servicios',
+                                          style: TextStyle(
+                                              color: Colors.blueGrey,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Lato'),
+                                        ),
+                                        Container(
+                                          width: 140,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: servs,
                                           ),
-                                          Container(
-                                            width: 140,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: servs,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Column(
-                                  children: <Widget>[],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                          Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left:5, right: 10),
-                                child: SvgPicture.asset(
-                                    'assets/icons/calendar.svg',
-                                    color: kceleste1),
+                              )
+                            : Column(
+                                children: <Widget>[],
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    'Dia y Hora',
-                                    style: TextStyle(
-                                        color: Colors.blueGrey,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Lato"),
-                                  ),
-                                  Text(
-                                    '${widget.form.fecha}',
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 5, right: 10),
+                              child: SvgPicture.asset(
+                                  'assets/icons/calendar.svg',
+                                  color: kceleste1),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Dia y Hora',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Lato"),
+                                ),
+                                Text(
+                                  '${widget.form.fecha}',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "Lato"),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 5, right: 10),
+                              child: SvgPicture.asset(
+                                  'assets/icons/location-marker.svg',
+                                  color: kceleste1),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Ubicación',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Lato"),
+                                ),
+                                Container(
+                                  width: 170,
+                                  child: Text(
+                                    '${busqueda.text}',
+                                    textAlign: TextAlign.start,
                                     style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: "Lato"),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left:5, right: 10),
-                                child: SvgPicture.asset(
-                                    'assets/icons/location-marker.svg',
-                                    color: kceleste1),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    'Ubicación',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 5, right: 10),
+                              child: SvgPicture.asset('assets/icons/home.svg',
+                                  color: kceleste1),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Tipo de vivienda',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Lato"),
+                                ),
+                                Container(
+                                  // width: 200,
+                                  child: Text(
+                                    '${_controllerTypeHouse}',
+                                    textAlign: TextAlign.start,
                                     style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.bold,
                                         fontFamily: "Lato"),
                                   ),
-                                  Container(
-                                    width: 170,
-                                    child: Text(
-                                      '${busqueda.text}',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: Colors.blueGrey,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "Lato"),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left:5, right: 10),
-                                child: SvgPicture.asset('assets/icons/home.svg',
-                                    color: kceleste1),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    'Tipo de vivienda',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 5, right: 10),
+                              child: SvgPicture.asset('assets/icons/phone.svg',
+                                  color: kceleste1),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Número de teléfono',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Lato"),
+                                ),
+                                Container(
+                                  // width: 150,
+                                  child: Text(
+                                    '${widget.form.numeroTelefono}',
+                                    textAlign: TextAlign.start,
                                     style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.bold,
                                         fontFamily: "Lato"),
                                   ),
-                                  Container(
-                                    // width: 200,
-                                    child: Text(
-                                      '${_controllerTypeHouse}',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: Colors.blueGrey,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "Lato"),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left:5, right: 10),
-                                child: SvgPicture.asset('assets/icons/phone.svg',
-                                    color: kceleste1),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    'Número de teléfono',
-                                    style: TextStyle(
-                                        color: Colors.blueGrey,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Lato"),
-                                  ),
-                                  Container(
-                                    // width: 150,
-                                    child: Text(
-                                      '${widget.form.numeroTelefono}',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                          color: Colors.blueGrey,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "Lato"),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text(
-                                "Total a pagar:",
-                                style: TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "Lato"),
-                              ),
-                              Text(
-                                " ${widget.form.price} Pesos",
-                                style: TextStyle(
-                                    color: kgreenPrimary,
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "Lato"),
-                              ),
-                            ],
-                          ),
-                        
-                        ],
-                      ),
-                    ],
-                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              "Total a pagar:",
+                              style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Lato"),
+                            ),
+                            Text(
+                              " ${widget.form.price} Pesos",
+                              style: TextStyle(
+                                  color: kgreenPrimary,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Lato"),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                actions: <Widget>[
-                  Row(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 100,
-                        child: FlatButton(
-                          color: opacityCeleste2,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Container(
-                            height: 55,
-                            child: Center(
-                              child: Text(
-                                'Cancelar',
-                                style: TextStyle(color: kceleste1, fontSize: 21),
-                              ),
+              ),
+              actions: <Widget>[
+                Row(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 100,
+                      child: FlatButton(
+                        color: opacityCeleste2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Container(
+                          height: 55,
+                          child: Center(
+                            child: Text(
+                              'Cancelar',
+                              style: TextStyle(color: kceleste1, fontSize: 21),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
                         ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      
-                      Container(
-                        // width: 180,
-                        child: FloatNext(
-                          text: 'Confirmar',
-                          iconData: Icons.arrow_forward,
-                          onChanged: () {
-                            controllerServi.payWhitEffective(
-                                widget.form,
-                                _controllerTypeHouse,
-                                numPiso.text,
-                                busqueda.text,
-                                _selectedPayment,
-                                _lat.latitude,
-                                _lat.longitude);
-                          },
-                        ),
+                    ),
+                    Container(
+                      // width: 180,
+                      child: FloatNext(
+                        text: 'Confirmar',
+                        iconData: Icons.arrow_forward,
+                        onChanged: () {
+                          controllerServi.payWhitEffective(
+                              widget.form,
+                              _controllerTypeHouse,
+                              numPiso.text,
+                              busqueda.text,
+                              _selectedPayment,
+                              _lat.latitude,
+                              _lat.longitude);
+                        },
                       ),
-                    ],
-                  ),
-                
-                
-                ],
-              );
+                    ),
+                  ],
+                ),
+              ],
+            );
           });
     }
 
-    _showBottomSheet() {
+    Future _showBottomSheet() {
       return showModalBottomSheet(
           backgroundColor: Colors.transparent,
           context: context,
@@ -580,16 +572,13 @@ class _MapedState extends State<Maped> {
           backgroundColor: Colors.grey[200],
           key: _scaffoldKey,
           body: SafeArea(
-            
-            child: Stack(
-              children: <Widget>[
+            child: Stack(children: <Widget>[
               // Mapa
               Container(
-                margin: EdgeInsets.only(top:250),
+                margin: EdgeInsets.only(top: 250),
                 alignment: Alignment.bottomCenter,
                 height: 400,
-                decoration: BoxDecoration(
-                  boxShadow: [
+                decoration: BoxDecoration(boxShadow: [
                   BoxShadow(
                       color: Colors.black45,
                       offset: Offset(1.4, 0.3),
@@ -636,8 +625,7 @@ class _MapedState extends State<Maped> {
                   height: 80,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                    ),
+                      borderRadius: BorderRadius.circular(20)),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -677,7 +665,8 @@ class _MapedState extends State<Maped> {
                               _showBottomSheet();
                             }
                           } else {
-                            _showSnackBar('Escribe tu dirección en el buscador');
+                            _showSnackBar(
+                                'Escribe tu dirección en el buscador');
                           }
                         },
                       ),
@@ -727,7 +716,8 @@ class _MapedState extends State<Maped> {
                                   BorderRadius.all(Radius.circular(12.0)),
                             ),
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Color(0xFFFFFFFF)),
+                                borderSide:
+                                    BorderSide(color: Color(0xFFFFFFFF)),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12.0)))),
                         style: TextStyle(
@@ -739,7 +729,8 @@ class _MapedState extends State<Maped> {
                         hintText: "Busca una dirección",
                         noResultsText:
                             "Si no encuentras el lugar pero puedes moverte tocando la pantalla",
-                        onDone: (BuildContext dialogContext, AddressPoint point) {
+                        onDone:
+                            (BuildContext dialogContext, AddressPoint point) {
                           markers.add(Marker(
                               markerId: MarkerId("yo"),
                               position: LatLng(point.latitude, point.longitude),
@@ -747,7 +738,8 @@ class _MapedState extends State<Maped> {
                           setState(() {
                             _lat = LatLng(point.latitude, point.longitude);
                           });
-                          _controller.animateCamera(CameraUpdate.newLatLng(_lat));
+                          _controller
+                              .animateCamera(CameraUpdate.newLatLng(_lat));
                           Navigator.pop(context);
                         },
                       ),
@@ -770,7 +762,8 @@ class _MapedState extends State<Maped> {
                           // margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                           decoration: BoxDecoration(
                             color: opacityCeleste2,
-                            borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(9.0)),
                             // boxShadow: <BoxShadow>[
                             //   BoxShadow(
                             //       color: Colors.black12,
@@ -782,7 +775,8 @@ class _MapedState extends State<Maped> {
                               underline: Container(
                                 decoration: const BoxDecoration(
                                     border: Border(
-                                        bottom: BorderSide(color: Colors.white))),
+                                        bottom:
+                                            BorderSide(color: Colors.white))),
                               ),
                               value: _controllerTypeHouse,
                               icon: Icon(

@@ -6,16 +6,16 @@ class TextInput extends StatelessWidget {
   final TextEditingController controller;
   int maxLines = 1;
 
-  TextInput(
-      {Key key,
-      @required this.hintText,
-      @required this.inputType,
-      @required this.controller,
-      this.maxLines});
+  TextInput({
+    Key key,
+    @required this.hintText,
+    @required this.inputType,
+    @required this.controller,
+    this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {
-  
     return Container(
       padding: EdgeInsets.only(right: 20.0, left: 20.0),
       margin: EdgeInsets.only(top: 60),
@@ -45,6 +45,5 @@ class TextInput extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(9.0)))),
       ),
     );
-  
   }
 }

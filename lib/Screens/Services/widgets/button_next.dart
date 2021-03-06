@@ -34,10 +34,12 @@ class FloatNext_State extends State<FloatNext> {
                     widget.text,
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 21,
+                        fontSize: 19,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: 5,),
+                  SizedBox(
+                    width: 5,
+                  ),
                   Icon(
                     widget.iconData,
                     size: 25,

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class FormInfo {
@@ -14,21 +12,16 @@ class FormInfo {
   final int price;
   final String type;
 
-
-
-
-
-  FormInfo({
-    @required Key key,
-    @required this.fecha,
-    @required this.descripcion,
-    @required this.flexible,
-    @required this.calle,
-    @required this.barrio,
-    @required this.vivienda,
-    @required this.numeroTelefono,
-    this.services,
-    @required this.price,
-    this.type
-   });
+  FormInfo(
+      {Key key,
+      @required this.fecha,
+      @required this.descripcion,
+      @required this.flexible,
+      @required this.calle,
+      @required this.barrio,
+      @required this.vivienda,
+      @required this.numeroTelefono,
+      this.services,
+      @required this.price,
+      this.type});
 }

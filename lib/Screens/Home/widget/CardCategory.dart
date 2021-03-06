@@ -61,7 +61,8 @@ class _CardCategoryState extends State<CardCategory> {
                                 widget.info,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
-                                    fontSize:MediaQuery.of(context).size.width / 22,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width / 22,
                                     fontWeight: FontWeight.w400,
                                     fontFamily: 'Monserrat',
                                     color: Color(0xff446F7A)),
@@ -74,54 +75,13 @@ class _CardCategoryState extends State<CardCategory> {
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Container(
-                        height: 80,
-                        width: 80,
-                        // color: Colors.blueGrey,
-                        alignment: Alignment.center,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(left: 8),
-                              child: Text(
-                                'Precio',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blueGrey),
-                              ),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.attach_money,
-                                  color: kceleste1,
-                                ),
-                                Text(
-                                  '${widget.price}',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                      fontSize: 21,
-                                      fontWeight: FontWeight.bold,
-                                      color: kceleste1),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
                       Row(
                         // crossAxisAlignment: CrossAxisAlignment.stretch,
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                        // button remove
+                          // button remove
                           Container(
                               height: 40,
                               width: 40,
@@ -141,9 +101,8 @@ class _CardCategoryState extends State<CardCategory> {
                             width: 40,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: opacityCeleste2,
-                              borderRadius: BorderRadius.circular(10)
-                            ),
+                                color: opacityCeleste2,
+                                borderRadius: BorderRadius.circular(10)),
                             child: Text(
                               "${widget.count}",
                               style: TextStyle(
@@ -182,6 +141,5 @@ class _CardCategoryState extends State<CardCategory> {
         ],
       ),
     );
- 
   }
 }

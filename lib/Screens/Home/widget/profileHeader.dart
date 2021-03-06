@@ -21,12 +21,9 @@ class _ProfileHeaderState extends State<ProfileHeader> {
 
   UserBloc userBloc;
 
-
   @override
   Widget build(BuildContext context) {
-  
-
-     userBloc = BlocProvider.of(context);
+    userBloc = BlocProvider.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -88,7 +85,6 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Column(
                     children: [
-                     
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -117,9 +113,9 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                           )
                         ],
                       ),
-                    
-                      SizedBox(height: 10,),
- 
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -148,9 +144,9 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                           )
                         ],
                       ),
-                    
-                      SizedBox(height: 10,),
-                      
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -179,10 +175,9 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                           )
                         ],
                       ),
-                   
-
-                      SizedBox(height: 10,),
-                    
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -211,27 +206,26 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                           )
                         ],
                       ),
-                      
                     ],
                   ),
                 )
               ],
             ),
           ),
-          // Container(
-          //   alignment: AlignmentDirectional.bottomCenter,
-          //   child: Container(
-          //     height: 80,
-          //     // width: 215,
-          //     child: FloatNext(
-          //       onChanged: () {
-          //             cont.singOute();
-          //       },
-          //       text: 'Cerrar sesión',
-          //       iconData: Icons.exit_to_app,
-          //     ),
-          //   ),
-          // ),
+          Container(
+            alignment: AlignmentDirectional.bottomCenter,
+            child: Container(
+              height: 80,
+              // width: 215,
+              child: FloatNext(
+                onChanged: () {
+                  cont.singOute();
+                },
+                text: 'Cerrar sesión',
+                iconData: Icons.exit_to_app,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:bellava/Screens/Delivery/widget/SelectDateTime.dart';
 import 'package:bellava/Screens/Delivery/widget/map.dart';
 import 'package:bellava/Screens/Delivery/widget/text_input.dart';
 import 'package:bellava/Screens/Delivery/widget/text_input_location.dart';
+import 'package:bellava/Screens/Home/widget/CardUserInfo.dart';
 import 'package:bellava/Screens/Services/widgets/background.dart';
 import 'package:bellava/Screens/Services/widgets/button_next.dart';
 import 'package:bellava/Screens/controllers/Service_controller.dart';
@@ -28,7 +29,7 @@ class DeliveryPage extends StatefulWidget {
 
   // agregar los nuevos inputs cuando se crea al profesional
 
-  // Investigar 
+  // Investigar
 
   DeliveryPage({Key key, this.form});
 
@@ -37,6 +38,7 @@ class DeliveryPage extends StatefulWidget {
 }
 
 class _DeliveryPageState extends State<DeliveryPage> {
+  var userDatax = Get.find<ServiceController>();
   // Variables para la localizacion
   Location location = new Location();
   bool _serviceEnabled;
@@ -92,6 +94,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
   final _controllerCupo = TextEditingController();
 
   String _selectedPayment = "";
+
+  bool mydat = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   void _showSnackBar(text) {
@@ -168,7 +172,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                       margin: EdgeInsets.only(top: 10, bottom: 10),
                       child: Center(
                         child: Text(
-                          "Selecciona el lugar",
+                          'Selecciona el lugar',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -210,7 +214,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
             return AlertDialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
-              title:  Row(
+              title: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -266,52 +270,53 @@ class _DeliveryPageState extends State<DeliveryPage> {
               ),
               actions: <Widget>[
                 GetBuilder<ServiceController>(
-                  builder: (_)=> FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Firestore.instance
-                            .collection('users')
-                            .document(_.user.uid)
-                            .updateData({
-                          'cupo': FieldValue.arrayUnion([_controllerCupo.text])
-                        });
-                        var info = FormInfo(
-                            fecha: "",
-                            descripcion: _controllerDescriptionPlace.text,
-                            flexible: false,
-                            calle: "",
-                            barrio: _controllerBarrioOrder,
-                            vivienda: "",
-                            numeroTelefono: _controllerPhoneNumber.text,
-                            services: widget.form.services,
-                            price: newTotal,
-                            type: widget.form.type);
-                        Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return DateSelect(
-                            info: info,
-                          );
-                        }));
-                      },
-                      shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            textColor: Colors.white,
-            child: Container(
-              width: 140,
-              height: 45,
-              child: Center(
-                  child: Text(
-                    'Continuar',
-                    style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                  builder: (_) => FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Firestore.instance
+                          .collection('users')
+                          .document(_.user.uid)
+                          .updateData({
+                        'cupo': FieldValue.arrayUnion([_controllerCupo.text])
+                      });
+                      var info = FormInfo(
+                          fecha: "",
+                          descripcion: _controllerDescriptionPlace.text,
+                          flexible: false,
+                          calle: "",
+                          barrio: _controllerBarrioOrder,
+                          vivienda: "",
+                          numeroTelefono: _controllerPhoneNumber.text,
+                          services: widget.form.services,
+                          price: newTotal,
+                          type: widget.form.type);
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (_) {
+                        return DateSelect(
+                          info: info,
+                        );
+                      }));
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    textColor: Colors.white,
+                    child: Container(
+                      width: 140,
+                      height: 45,
+                      child: Center(
+                        child: Text(
+                          'Continuar',
+                          style: TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    color: Color(0xff77D499),
                   ),
-              ),
-            ),
-            color: Color(0xff77D499),
-                  ),
-                )],
+                )
+              ],
             );
           });
     }
@@ -327,7 +332,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
               children: <Widget>[
                 //Detalles
                 TextInput(
-                  hintText: 'Por favor, detalla aquí cualquier información que creas necesaria',
+                  hintText:
+                      'Por favor, detalla aquí cualquier información que creas necesaria',
                   inputType: TextInputType.multiline,
                   maxLines: 4,
                   controller: _controllerDescriptionPlace,
@@ -409,29 +415,68 @@ class _DeliveryPageState extends State<DeliveryPage> {
                       }),
                 ),
 
-                //Numero de telefono
                 Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: TextInputLocation(
-                    controller: _controllerPhoneNumber,
-                    hintText: 'Teléfono de contacto',
-                    iconData: SvgPicture.asset('assets/icons/phone.svg',
-                        fit: BoxFit.none, width: 5, color: Colors.blueGrey),
-                    tipoTeclado: TextInputType.number,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
                   ),
-                ),
+                  child: Column(
+                    children: [
+                      //Numero de telefono
+                      Container(
+                        margin: EdgeInsets.only(top: 20.0),
+                        child: TextInputLocation(
+                          controller: _controllerPhoneNumber,
+                          hintText: 'Teléfono de contacto',
+                          iconData: SvgPicture.asset('assets/icons/phone.svg',
+                              fit: BoxFit.none,
+                              width: 5,
+                              color: Colors.blueGrey),
+                          tipoTeclado: TextInputType.number,
+                        ),
+                      ),
 
-                //Cupon
-                Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: TextInputLocation(
-                    controller: _controllerCupo,
-                    hintText: 'Cupón de descuento',
-                    iconData: SvgPicture.asset('assets/icons/tag.svg',
-                        fit: BoxFit.none, width: 5, color: Colors.blueGrey),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 20),
+                          Text(
+                            'O continuar con tus datos',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                mydat = !mydat;
+                              });
+                            },
+                            child: CardUserInfo(
+                              user: userDatax.user,
+                              select: mydat,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      //Cupon
+                      Container(
+                        margin: EdgeInsets.only(top: 20.0),
+                        child: TextInputLocation(
+                          controller: _controllerCupo,
+                          hintText: 'Cupón de descuento',
+                          iconData: SvgPicture.asset('assets/icons/tag.svg',
+                              fit: BoxFit.none,
+                              width: 5,
+                              color: Colors.blueGrey),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 160)
+                SizedBox(height: 130)
               ],
             ),
           ),
@@ -507,78 +552,92 @@ class _DeliveryPageState extends State<DeliveryPage> {
                         ],
                       )),
                   GetBuilder<ServiceController>(
-                    builder: (_)=> Container(
+                    builder: (_) => Container(
                       width: 190,
                       child: FloatNext(
                         text: 'Siguiente',
                         iconData: Icons.arrow_forward,
                         onChanged: () async {
                           if (_controllerPhoneNumber.text.isNotEmpty &&
-                              _controllerBarrioOrder != null) {
+                                  _controllerBarrioOrder != null ||
+                              mydat) {
                             if (_controllerCupo.text.length >= 1) {
                               //Verifiamos que el cupón existe en la base de datos del usuario
-                                _showSnackBar("Verificando código");
-                               Firestore.instance.collection('users').document(_.user.uid).get().then((value) {
-                                        var cupo =   value.data['cupo'].indexOf(_controllerCupo.text);
-                                        print(value.data['cupo']);
+                              _showSnackBar('Verificando código');
+                              Firestore.instance
+                                  .collection('users')
+                                  .document(_.user.uid)
+                                  .get()
+                                  .then((value) {
+                                var cupo = value.data['cupo']
+                                    .indexOf(_controllerCupo.text);
+                                print(value.data['cupo']);
 
-                                              if(cupo != null){
-                                                    cupo == -1 ?
-                                                            //Ahora tenemos que verificar si el cupon esta disponible para usar
-                                                            Firestore.instance.collection('cupones').document('${_controllerCupo.text}').get().then((data) {
-                                                                          Firestore.instance.collection('users').document(_.user.uid).updateData({
-                                                                            'cupo' : FieldValue.arrayUnion([_controllerCupo.text])
-                                                                          });
+                                if (cupo != null) {
+                                  cupo == -1
+                                      ?
+                                      //Ahora tenemos que verificar si el cupon esta disponible para usar
+                                      Firestore.instance
+                                          .collection('cupones')
+                                          .document('${_controllerCupo.text}')
+                                          .get()
+                                          .then((data) {
+                                          Firestore.instance
+                                              .collection('users')
+                                              .document(_.user.uid)
+                                              .updateData({
+                                            'cupo': FieldValue.arrayUnion(
+                                                [_controllerCupo.text])
+                                          });
 
-                                                                      var dataCupo = data.data['isused'];
-                                                                      var descuento = data.data['desc'];
-                                                                      print(dataCupo);
-                                                                      if(dataCupo){
-                                                                        //Aplicamos el descuento
-                                                                        var apli =
-                                                                            widget.form.price - descuento;
-                                                                      showAlertDescuento(context, descuento);
-                                                                      } else {
-                                                                        var apli =
-                                                                            widget.form.price - descuento;
-                                                                            showAlertDescuento(context, apli);
-                                                                        // _showSnackBar(
-                                                                        //         "Este código no está disponible");
-                                                                      }
-                                                                        }).catchError((e)=> _showSnackBar(
-                                                                                "Este código no está disponible"))
-                                                        :
-                                                            _showSnackBar(
-                                                            "Ya usaste este código");
-
-                                              }
-
-                                });
-
+                                          var dataCupo = data.data['isused'];
+                                          var datatype = data.data['type'];
+                                          var descuento = data.data['desc'];
+                                          print(dataCupo);
+                                          if (dataCupo) {
+                                            //Aplicamos el descuento
+                                            var apli =
+                                                widget.form.price - descuento;
+                                            showAlertDescuento(
+                                                context, descuento);
+                                          } else {
+                                            var apli =
+                                                widget.form.price - descuento;
+                                            showAlertDescuento(context, apli);
+                                            // _showSnackBar(
+                                            //         "Este código no está disponible");
+                                          }
+                                        }).catchError(
+                                          (e) => _showSnackBar(
+                                              "Este código no está disponible"),
+                                        )
+                                      : _showSnackBar("Ya usaste este código");
+                                }
+                              });
                             } else {
                               var info2 = FormInfo(
-                                  fecha: "",
-                                  descripcion: _controllerDescriptionPlace.text,
-                                  flexible: false,
-                                  calle: "",
-                                  barrio: _controllerBarrioOrder,
-                                  vivienda: "",
-                                  numeroTelefono: _controllerPhoneNumber.text,
-                                  services: widget.form.services,
-                                  price: widget.form.price,
-                                  type: widget.form.type);
-                              Navigator.pop(context);
-                              await Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) {
-                                return DateSelect(
-                                  info: info2,
-                                  // user: widget.user,
-                                );
-                              }));
+                                fecha: widget.form.fecha,
+                                descripcion: _controllerDescriptionPlace.text,
+                                flexible: widget.form.flexible,
+                                calle: mydat ? _.user.adress : '',
+                                barrio: mydat
+                                    ? _.user.barrio
+                                    : _controllerBarrioOrder,
+                                vivienda: mydat ? _.user.barrio : '',
+                                numeroTelefono: mydat
+                                    ? _.user.phoneNumber
+                                    : _controllerPhoneNumber.text,
+                                services: widget.form.services,
+                                price: widget.form.price,
+                                type: widget.form.type,
+                              );
+
+                              _.showBottomSheet(info2);
+
                               // _showButtonSheeetMap();
                             }
                           } else {
-                            _showSnackBar("Procura rellenar todos los campos");
+                            _showSnackBar('Procura rellenar todos los campos');
                           }
                         },
                       ),

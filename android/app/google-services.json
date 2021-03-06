@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "257354641589-lpllp1qc733f6b2pmkib2p943i9vvl6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava",
+            "certificate_hash": "7745955890c4d5ed79da66350ccfe0b259a96166"
+          }
+        },
+        {
           "client_id": "257354641589-upuodr482q1ej3236739vrh4t1a8jm0b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -54,6 +62,13 @@
             {
               "client_id": "257354641589-06tsfhb12glgr7662ko177ajisnit1u4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "257354641589-d2thtrvpesleba6uhaim2l0l75fplltv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.martinfarel.bellava"
+              }
             }
           ]
         }
@@ -67,6 +82,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "257354641589-9ir4uo0m8n0dipoo1kt99lh8bhbgtuej.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava_prof",
+            "certificate_hash": "48b0c88c279ddcd60de9a4292b0578a30187df95"
+          }
+        },
+        {
+          "client_id": "257354641589-m802cb7t5u899hbmrdc0ibhrbhicsmfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinfarel.bellava_prof",
+            "certificate_hash": "ce9e607b229b624246737a8981c7c93a3fb57a65"
+          }
+        },
         {
           "client_id": "257354641589-pv5stkqm8jon0oj6sllsibp109i5q810.apps.googleusercontent.com",
           "client_type": 1,
@@ -91,6 +122,13 @@
             {
               "client_id": "257354641589-06tsfhb12glgr7662ko177ajisnit1u4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "257354641589-d2thtrvpesleba6uhaim2l0l75fplltv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.martinfarel.bellava"
+              }
             }
           ]
         }

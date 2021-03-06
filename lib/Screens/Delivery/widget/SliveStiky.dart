@@ -1,10 +1,10 @@
 import 'package:bellava/Models/formInfo.dart';
-import 'package:bellava/Models/masajes.dart';
-import 'package:bellava/Models/user.dart';
-import 'package:bellava/Screens/Delivery/widget/map.dart';
+import 'package:bellava/Screens/Delivery/UI/DeliveryPage.dart';
+import 'package:bellava/Screens/controllers/Service_controller.dart';
 import 'package:bellava/Utils/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_moment/simple_moment.dart';
 
@@ -95,6 +95,8 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
   String titleHora;
   String selectHora;
 
+  var nF = Get.find<ServiceController>();
+
   var horanow = DateTime.now().hour;
   var compare = 21 - DateTime.now().hour;
 
@@ -124,8 +126,7 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
         elevation: 17.0,
         backgroundColor: Colors.white,
         context: context,
-        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         builder: (context) {
           var nuevoTotal = widget.inform.price + sum;
           return Container(
@@ -134,76 +135,72 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Costo del servicio",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: Colors.blueGrey),
-                          ),
-                          Text(
-                            "${widget.inform.price} Pesos",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 21,
-                                color: Color(0xff77D499)),
-                          ),
-                        ],
-                      ),
-                
-                 Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Cargo por demanda",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17,
-                                      color: Colors.blueGrey),
-                                ),
-                                Text(
-                                  "${sum} Pesos",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 21,
-                                      color: Color(0xff77D499)),
-                                ),
-                              ],
-                            )
-                        
-                   ],
-                 ),
-                 
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Total a pagar",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 19,
-                                color: Colors.blueGrey),
-                          ),
-                          Text(
-                            "${nuevoTotal} Pesos",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: Color(0xff77D499)),
-                          ),
-                        ],
-                      ),
-               
-                Container(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Costo del servicio",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Colors.blueGrey),
+                        ),
+                        Text(
+                          "${widget.inform.price} Pesos",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 21,
+                              color: Color(0xff77D499)),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Cargo por demanda",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Colors.blueGrey),
+                        ),
+                        Text(
+                          "${sum} Pesos",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 21,
+                              color: Color(0xff77D499)),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Total a pagar",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 19,
+                              color: Colors.blueGrey),
+                        ),
+                        Text(
+                          "${nuevoTotal} Pesos",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Color(0xff77D499)),
+                        ),
+                      ],
+                    ),
+                    Container(
                       height: 50,
                       width: 150,
                       // margin: EdgeInsets.only(top: 10, bottom: 10),
@@ -221,39 +218,33 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Icon(Icons.arrow_forward, color: Colors.white,)
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  )
                                 ],
                               ),
                             ),
                             onPressed: () {
-                              print(widget.inform.services);
-                              var infoWDate = FormInfo(
-                                  fecha: selectHora,
-                                  descripcion: widget.inform.descripcion,
-                                  flexible: widget.inform.flexible,
-                                  calle: "",
-                                  barrio: widget.inform.barrio,
-                                  vivienda: "",
-                                  numeroTelefono: widget.inform.numeroTelefono,
-                                  services: widget.inform.services,
-                                  price: nuevoTotal,
-                                  type: widget.inform.type);
-                              Navigator.maybePop(context,
-                                  {Navigator.pop(context), Navigator.pop(context)});
-                              Navigator.push(
-                                  context,
-                                   MaterialPageRoute(
-                                      builder: (BuildContext context) =>  Maped(
-                                            form: infoWDate,
-                                            // user: widget.user,
-                                          )));
+                              Get.back();
+                              var info = FormInfo(
+                                barrio: widget.inform.barrio,
+                                calle: widget.inform.calle,
+                                descripcion: widget.inform.descripcion,
+                                fecha: selectHora,
+                                flexible: widget.inform.flexible,
+                                price: widget.inform.price,
+                                numeroTelefono: widget.inform.numeroTelefono,
+                                vivienda: widget.inform.vivienda,
+                                type: widget.inform.type,
+                                services: widget.inform.services,
+                              );
+                              Get.to(DeliveryPage(form: info));
                             }),
                       ),
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-              
-              
               ],
             ),
           );
@@ -276,9 +267,7 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
           // padding: EdgeInsets.only(left:15),
           color: Colors.white,
           child: Text(
-            widget.index == 0
-                ? "HOY"
-                : "${dayse}",
+            widget.index == 0 ? "HOY" : "${dayse}",
             style: TextStyle(
                 color: Colors.black87,
                 fontSize: 18,
@@ -317,23 +306,24 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
               if (widget.index == 0) {
                 if (cdate >= 8) {
                   if (i <= 0 || march.inHours < 12) {
-                    return Text("Alta demanda (+ 150 pesos)",
+                    return Text(
+                      "Alta demanda (+ 150 pesos)",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                     );
                   } else if (i != 0 && i < 3) {
-                    return Text("Alta demanda (+ 75 pesos)",
+                    return Text(
+                      "Alta demanda (+ 75 pesos)",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                     );
                   } else {
-                    return Text('No hay cargos',
+                    return Text(
+                      'No hay cargos',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -342,12 +332,12 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
                     );
                   }
                 } else {
-                  return Text('No hay cargos',
+                  return Text(
+                    'No hay cargos',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),
+                        fontWeight: FontWeight.bold),
                   );
                 }
               }
@@ -363,9 +353,9 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
                     hoverColor: Colors.white,
                     title: widget.index == 0
                         ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
                                 compare == 13
                                     ? "${DateFormat.j('es').format(horaHabil)}:00 Hs"
                                     : "${DateFormat.jm('es').format(DateTime.now().add(Duration(hours: 1)).add(Duration(hours: i)))} Hs",
@@ -374,15 +364,18 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
                                     fontSize: 21,
                                     fontWeight: FontWeight.bold),
                               ),
-                              if (_showSubtitle() != '') Container(
-                               padding: EdgeInsets.all(8),
-                               decoration: BoxDecoration(
-                                 color: kceleste1,
-                                 borderRadius: BorderRadius.circular(10)
-                               ),
-                               child: _showSubtitle1()) else Container()
-                          ],
-                        )
+                              if (_showSubtitle() != '')
+                                Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        color: kceleste1,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: _showSubtitle1())
+                              else
+                                Container()
+                            ],
+                          )
                         : Text(
                             widget.index == 0
                                 ? '${DateFormat.jm('es').format(DateTime.now().add(Duration(hours: 1)).add(Duration(hours: i)))} Hs'
@@ -446,8 +439,6 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
                         }
                       }
                     },
-                  
-                    
                   ),
                   Divider(
                     thickness: 0.2,

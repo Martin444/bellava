@@ -24,7 +24,7 @@ class OrderDetails extends StatelessWidget {
       _.order.services.forEach((e) {
         e != null
             ? servs.add(Text(
-                e,
+                e['service'],
                 style: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 17,
@@ -331,7 +331,8 @@ class OrderDetails extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            padding: EdgeInsets.only(left:5, right: 10),
+                                            padding: EdgeInsets.only(
+                                                left: 5, right: 10),
                                             child: SvgPicture.asset(
                                                 'assets/icons/clipboard-list.svg',
                                                 color: kceleste1),
@@ -372,7 +373,8 @@ class OrderDetails extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(left:5, right: 10),
+                                    padding:
+                                        EdgeInsets.only(left: 5, right: 10),
                                     child: SvgPicture.asset(
                                         'assets/icons/calendar.svg',
                                         color: kceleste1),
@@ -409,7 +411,8 @@ class OrderDetails extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(left:5, right: 10),
+                                    padding:
+                                        EdgeInsets.only(left: 5, right: 10),
                                     child: SvgPicture.asset(
                                         'assets/icons/location-marker.svg',
                                         color: kceleste1),
@@ -450,7 +453,8 @@ class OrderDetails extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(left:5, right: 10),
+                                    padding:
+                                        EdgeInsets.only(left: 5, right: 10),
                                     child: SvgPicture.asset(
                                         'assets/icons/home.svg',
                                         color: kceleste1),
@@ -491,7 +495,8 @@ class OrderDetails extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(left:5, right: 10),
+                                    padding:
+                                        EdgeInsets.only(left: 5, right: 10),
                                     child: SvgPicture.asset(
                                         'assets/icons/phone.svg',
                                         color: kceleste1),
