@@ -233,7 +233,7 @@ class __StickyHeaderListState extends State<_StickyHeaderList> {
                                 descripcion: widget.inform.descripcion,
                                 fecha: selectHora,
                                 flexible: widget.inform.flexible,
-                                price: widget.inform.price,
+                                price: nuevoTotal,
                                 numeroTelefono: widget.inform.numeroTelefono,
                                 vivienda: widget.inform.vivienda,
                                 type: widget.inform.type,

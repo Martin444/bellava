@@ -280,22 +280,24 @@ class _DeliveryPageState extends State<DeliveryPage> {
                         'cupo': FieldValue.arrayUnion([_controllerCupo.text])
                       });
                       var info = FormInfo(
-                          fecha: "",
-                          descripcion: _controllerDescriptionPlace.text,
-                          flexible: false,
-                          calle: "",
-                          barrio: _controllerBarrioOrder,
-                          vivienda: "",
-                          numeroTelefono: _controllerPhoneNumber.text,
-                          services: widget.form.services,
-                          price: newTotal,
-                          type: widget.form.type);
-                      Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return DateSelect(
-                          info: info,
-                        );
-                      }));
+                        fecha: "",
+                        descripcion: _controllerDescriptionPlace.text,
+                        flexible: false,
+                        calle: mydat ? _.user.adress : '',
+                        barrio: mydat ? _.user.barrio : _controllerBarrioOrder,
+                        vivienda: mydat ? _.user.barrio : '',
+                        numeroTelefono: mydat
+                            ? _.user.phoneNumber
+                            : _controllerPhoneNumber.text,
+                        services: widget.form.services,
+                        price: newTotal,
+                        type: widget.form.type,
+                      );
+
+                      if (mydat) {
+                        Get.back();
+                        _.showBottomSheet(info);
+                      }
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
@@ -593,8 +595,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
                                           var dataCupo = data.data['isused'];
                                           var datatype = data.data['type'];
                                           var descuento = data.data['desc'];
-                                          print(dataCupo);
-                                          if (dataCupo) {
+                                          if (dataCupo &&
+                                              datatype == widget.form.type) {
                                             //Aplicamos el descuento
                                             var apli =
                                                 widget.form.price - descuento;
